@@ -16,6 +16,10 @@ interface GameState {
   correctKeystrokes: number;
   questionsCompleted: number;
   isPlaying: boolean;
+  showFeedback: boolean;
+  isCorrect: boolean;
+  feedbackMessage: string;
+  usedPhraseIds: string[];
 }
 
 interface TypingGameProps {
@@ -41,10 +45,15 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
     correctKeystrokes: 0,
     questionsCompleted: 0,
     isPlaying: false,
+    showFeedback: false,
+    isCorrect: false,
+    feedbackMessage: '',
+    usedPhraseIds: [],
   });
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const speechSynthesisRef = useRef<SpeechSynthesis | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -72,11 +81,25 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
     };
   }, [gameState.currentPhrase]);
 
-  const startGame = useCallback(() => {
+  const getRandomPhrase = useCallback((usedIds: string[]) => {
     const phrases = getPhrasesByLevelAndPart(level, part);
-    if (phrases.length === 0) return;
+    if (phrases.length === 0) return null;
 
-    const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+    const availablePhrases = phrases.filter(phrase => !usedIds.includes(phrase.id));
+
+    if (availablePhrases.length === 0) {
+      const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+      return randomPhrase;
+    }
+
+    const randomPhrase = availablePhrases[Math.floor(Math.random() * availablePhrases.length)];
+    return randomPhrase;
+  }, [level, part]);
+
+  const startGame = useCallback(() => {
+    const randomPhrase = getRandomPhrase([]);
+    if (!randomPhrase) return;
+
     setGameState(prev => ({
       ...prev,
       currentPhrase: randomPhrase,
@@ -90,12 +113,28 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
       correctKeystrokes: 0,
       questionsCompleted: 0,
       isPlaying: false,
+      showFeedback: false,
+      isCorrect: false,
+      feedbackMessage: '',
+      usedPhraseIds: [randomPhrase.id],
     }));
-  }, [level, part]);
+
+    setTimeout(() => {
+      playPhrase();
+    }, 500);
+  }, [getRandomPhrase, playPhrase]);
 
   useEffect(() => {
     startGame();
   }, [startGame]);
+
+  useEffect(() => {
+    if (gameState.currentPhrase && gameState.questionsCompleted > 0 && !gameState.isGameOver) {
+      setTimeout(() => {
+        playPhrase();
+      }, 500);
+    }
+  }, [gameState.currentPhrase, gameState.questionsCompleted, gameState.isGameOver, playPhrase]);
 
   useEffect(() => {
     if (!gameState.startTime || gameState.isGameOver) return;
@@ -117,27 +156,31 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
   }, [gameState.startTime, gameState.isGameOver, gameState.correctKeystrokes]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (gameState.isGameOver || !gameState.currentPhrase) return;
+    if (gameState.isGameOver) return;
 
     const input = e.target.value;
+    setGameState(prev => ({
+      ...prev,
+      userInput: input,
+      showFeedback: false,
+    }));
+  };
+
+  const checkAnswer = () => {
+    if (gameState.isGameOver || !gameState.currentPhrase) return;
+
+    const input = gameState.userInput;
     const currentPhrase = gameState.currentPhrase.english;
     let newCorrectKeystrokes = gameState.correctKeystrokes;
-    let newTotalKeystrokes = gameState.totalKeystrokes;
+    let newTotalKeystrokes = gameState.totalKeystrokes + input.length;
 
-    // 入力の正確性をチェック
-    for (let i = 0; i < input.length; i++) {
-      if (i < currentPhrase.length && input[i] === currentPhrase[i]) {
-        newCorrectKeystrokes++;
-      }
-      newTotalKeystrokes++;
-    }
-
-    // フレーズが完了した場合
-    if (input === currentPhrase) {
+    const isCorrect = input.trim().toLowerCase() === currentPhrase.trim().toLowerCase();
+    
+    if (isCorrect) {
+      newCorrectKeystrokes += input.length;
       const newQuestionsCompleted = gameState.questionsCompleted + 1;
       
       if (newQuestionsCompleted >= QUESTIONS_TO_COMPLETE) {
-        // ゲームクリア
         setGameState(prev => ({
           ...prev,
           isGameOver: true,
@@ -146,6 +189,9 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
           totalKeystrokes: newTotalKeystrokes,
           accuracy: Math.round((newCorrectKeystrokes / newTotalKeystrokes) * 100),
           questionsCompleted: newQuestionsCompleted,
+          showFeedback: true,
+          isCorrect: true,
+          feedbackMessage: '正解です！ゲームクリアおめでとうございます！',
         }));
         onGameEnd(
           gameState.score + 100,
@@ -153,9 +199,8 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
           Math.round((newCorrectKeystrokes / newTotalKeystrokes) * 100)
         );
       } else {
-        // 次の問題へ
-        const phrases = getPhrasesByLevelAndPart(level, part);
-        const nextPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+        const nextPhrase = getRandomPhrase(gameState.usedPhraseIds);
+        if (!nextPhrase) return;
         
         setGameState(prev => ({
           ...prev,
@@ -166,15 +211,24 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
           totalKeystrokes: newTotalKeystrokes,
           accuracy: Math.round((newCorrectKeystrokes / newTotalKeystrokes) * 100),
           questionsCompleted: newQuestionsCompleted,
+          showFeedback: true,
+          isCorrect: true,
+          feedbackMessage: '正解です！次の問題に進みます。',
+          usedPhraseIds: [...prev.usedPhraseIds, nextPhrase.id],
         }));
+
+        setTimeout(() => {
+          if (inputRef.current) {
+            inputRef.current.focus();
+          }
+        }, 100);
       }
     } else {
       setGameState(prev => ({
         ...prev,
-        userInput: input,
-        correctKeystrokes: newCorrectKeystrokes,
-        totalKeystrokes: newTotalKeystrokes,
-        accuracy: Math.round((newCorrectKeystrokes / newTotalKeystrokes) * 100),
+        showFeedback: true,
+        isCorrect: false,
+        feedbackMessage: `不正解です。正しくは「${currentPhrase}」です。`,
       }));
     }
   };
@@ -249,16 +303,34 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
         </div>
       </div>
 
+      {gameState.showFeedback && (
+        <div className={`mb-4 p-3 rounded-lg text-center ${
+          gameState.isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+        }`}>
+          {gameState.feedbackMessage}
+        </div>
+      )}
+
       <div className="mb-6">
-        <input
-          type="text"
-          value={gameState.userInput}
-          onChange={handleInputChange}
-          disabled={gameState.isGameOver}
-          className="w-full p-2 border rounded-lg font-mono text-lg"
-          placeholder="ここにタイプしてください..."
-          autoFocus
-        />
+        <div className="flex gap-2">
+          <input
+            ref={inputRef}
+            type="text"
+            value={gameState.userInput}
+            onChange={handleInputChange}
+            disabled={gameState.isGameOver}
+            className="w-full p-2 border rounded-lg font-mono text-lg"
+            placeholder="ここにタイプしてください..."
+            autoFocus
+          />
+          <button
+            onClick={checkAnswer}
+            disabled={gameState.isGameOver}
+            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+          >
+            回答する
+          </button>
+        </div>
       </div>
 
       <div className="flex justify-between items-center">
