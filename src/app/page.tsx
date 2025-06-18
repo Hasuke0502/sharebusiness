@@ -3,6 +3,7 @@
 
 import { useState } from 'react';
 import TypingGame from '@/components/TypingGame';
+import ProgressDisplay from '@/components/ProgressDisplay';
 import { ToeicLevel, ToeicPart } from '@/data/toeicPhrases';
 
 export default function Home() {
@@ -82,7 +83,12 @@ export default function Home() {
         </h1>
         
         <div className="bg-white rounded-lg shadow-lg p-6 space-y-6">
-          <section>
+          <ProgressDisplay 
+            initialLevel={selectedLevel}
+            initialPart={selectedPart}
+          />
+          
+          <section className="mt-6">
             <h2 className="text-xl font-semibold mb-4">TOEICスコアレベルを選択</h2>
             <div className="grid grid-cols-3 gap-4">
               {(['300-500', '500-700', '700-900'] as ToeicLevel[]).map((level) => (

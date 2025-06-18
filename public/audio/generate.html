@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>効果音生成ツール</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    button {
+      padding: 10px 15px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .container {
+      margin: 20px 0;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>効果音生成ツール</h1>
+  
+  <p>以下のボタンをクリックして効果音を再生します。ブラウザの画面録画機能を使用して音声をキャプチャしてください。</p>
+  
+  <div class="container">
+    <h2>正解音</h2>
+    <button id="correctSound">正解音を再生</button>
+  </div>
+  
+  <div class="container">
+    <h2>不正解音</h2>
+    <button id="incorrectSound">不正解音を再生</button>
+  </div>
+  
+  <div class="container">
+    <h3>使用方法</h3>
+    <ol>
+      <li>ブラウザの画面録画機能を起動（多くのブラウザでF12→「録画」タブ）</li>
+      <li>録画を開始</li>
+      <li>ボタンをクリックして効果音を再生</li>
+      <li>録画を停止</li>
+      <li>録音した音声をMP3形式で保存（correct.mp3, incorrect.mp3）</li>
+    </ol>
+  </div>
+  
+  <script>
+    document.getElementById('correctSound').addEventListener('click', function() {
+      playCorrectSound();
+    });
+    
+    document.getElementById('incorrectSound').addEventListener('click', function() {
+      playIncorrectSound();
+    });
+    
+    function playCorrectSound() {
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); // A5
+      oscillator.frequency.setValueAtTime(1318.51, audioCtx.currentTime + 0.1); // E6
+      oscillator.frequency.setValueAtTime(1760, audioCtx.currentTime + 0.2); // A6
+      
+      gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      
+      oscillator.start();
+      oscillator.stop(audioCtx.currentTime + 0.5);
+    }
+    
+    function playIncorrectSound() {
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(440, audioCtx.currentTime); // A4
+      oscillator.frequency.setValueAtTime(415.3, audioCtx.currentTime + 0.1); // G#4/Ab4
+      
+      gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      
+      oscillator.start();
+      oscillator.stop(audioCtx.currentTime + 0.4);
+    }
+  </script>
+</body>
+</html> 

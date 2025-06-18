@@ -1186,82 +1186,7 @@ export const TOEIC_PHRASES: Phrase[] = [
     part: 'Part3',
     category: 'AI・テクノロジー'
   },
-  // Part4（説明文問題）
-  {
-    id: 'b1-p4',
-    english: 'This is an announcement for all passengers on flight 203 to New York.',
-    japanese: 'これはニューヨーク行き203便の全乗客へのアナウンスです。',
-    explanation: 'Part4のアナウンス問題でよく使われる表現です。',
-    level: '300-500',
-    part: 'Part4',
-    category: 'アナウンス'
-  },
-  {
-    id: 'b2-p4',
-    english: 'The store will be closed for renovation from Monday to Wednesday.',
-    japanese: '店舗は月曜日から水曜日まで改装のため閉店します。',
-    explanation: 'Part4のお知らせ問題でよく使われる表現です。',
-    level: '300-500',
-    part: 'Part4',
-    category: 'お知らせ'
-  },
-  // Part5（短文穴埋め問題）
-  {
-    id: 'b1-p5',
-    english: 'The company is looking for qualified candidates for the position.',
-    japanese: '会社はその職位に適格な候補者を探しています。',
-    explanation: 'Part5の文法問題でよく使われる表現です。lookingとforの関係に注目。',
-    level: '300-500',
-    part: 'Part5',
-    category: '求人・採用'
-  },
-  {
-    id: 'b2-p5',
-    english: 'Please submit your application form by the end of this month.',
-    japanese: '今月末までに申込書を提出してください。',
-    explanation: 'Part5の文法問題でよく使われる表現です。byの使い方に注目。',
-    level: '300-500',
-    part: 'Part5',
-    category: '締切・期限'
-  },
-  // Part6（長文穴埋め問題）
-  {
-    id: 'b1-p6',
-    english: 'We are pleased to announce our new product line.',
-    japanese: '新製品ラインの発表をお知らせできることを嬉しく思います。',
-    explanation: 'Part6のビジネスメール問題でよく使われる表現です。',
-    level: '300-500',
-    part: 'Part6',
-    category: 'ビジネスメール'
-  },
-  {
-    id: 'b2-p6',
-    english: 'If you have any questions, please do not hesitate to contact us.',
-    japanese: 'ご質問がございましたら、お気軽にお問い合わせください。',
-    explanation: 'Part6のビジネスメール問題でよく使われる表現です。',
-    level: '300-500',
-    part: 'Part6',
-    category: 'ビジネスメール'
-  },
-  // Part7（読解問題）
-  {
-    id: 'b1-p7',
-    english: 'According to the article, the company will expand its business next year.',
-    japanese: '記事によると、その会社は来年事業を拡大する予定です。',
-    explanation: 'Part7の読解問題でよく使われる表現です。According toの使い方に注目。',
-    level: '300-500',
-    part: 'Part7',
-    category: 'ビジネスニュース'
-  },
-  {
-    id: 'b2-p7',
-    english: 'The customer service department is available 24 hours a day.',
-    japanese: 'カスタマーサービス部門は24時間利用可能です。',
-    explanation: 'Part7の読解問題でよく使われる表現です。',
-    level: '300-500',
-    part: 'Part7',
-    category: 'サービス案内'
-  },
+  // Part4（説明文問題）- 既に他の場所に追加済み,
 
   // 500-700点レベル
   // Part2（応答問題）
@@ -1446,73 +1371,1687 @@ export const TOEIC_PHRASES: Phrase[] = [
     part: 'Part4',
     category: 'M&A・企業買収'
   },
-  // Part5（短文穴埋め問題）
+  // Part4の追加フレーズ
   {
-    id: 'a1-p5',
-    english: 'The unprecedented growth in the technology sector has led to a surge in investment opportunities.',
-    japanese: 'テクノロジー部門の前例のない成長が、投資機会の急増につながっています。',
-    explanation: 'Part5の文法問題でよく使われる上級レベルの表現です。unprecedentedは「前例のない」、surgeは「急増」という意味です。',
-    level: '700-900',
-    part: 'Part5',
-    category: '投資'
+    id: 'b1-p4',
+    english: 'This is a reminder that the company picnic will be held this Saturday.',
+    japanese: '会社のピクニックが今週の土曜日に開催されることをお知らせします。',
+    explanation: 'Part4のアナウンス問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part4',
+    category: 'アナウンス'
   },
   {
-    id: 'a2-p5',
-    english: 'Despite the economic downturn, the company managed to maintain its competitive edge.',
-    japanese: '経済低迷にもかかわらず、同社は競争力を維持することができました。',
-    explanation: 'Part5の文法問題でよく使われる上級レベルの表現です。downturnは「低迷」、competitive edgeは「競争力」という意味です。',
+    id: 'b2-p4',
+    english: 'The train to Central Station will depart from platform 3 in five minutes.',
+    japanese: 'セントラル駅行きの電車は5分後にプラットフォーム3から出発します。',
+    explanation: 'Part4のアナウンス問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'b3-p4',
+    english: 'Please turn off all electronic devices during the presentation.',
+    japanese: 'プレゼンテーション中は、すべての電子機器の電源をお切りください。',
+    explanation: 'Part4のアナウンス問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'b4-p4',
+    english: 'The office will be closed for maintenance on Sunday.',
+    japanese: '事務所は日曜日にメンテナンスのため閉鎖されます。',
+    explanation: 'Part4のアナウンス問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'b5-p4',
+    english: 'The next station is Downtown. Doors will open on the right.',
+    japanese: '次の駅はダウンタウンです。ドアは右側が開きます。',
+    explanation: 'Part4のアナウンス問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'b6-p4',
+    english: 'The flight to New York has been delayed by one hour.',
+    japanese: 'ニューヨーク行きの便は1時間遅れています。',
+    explanation: 'Part4のアナウンス問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'b7-p4',
+    english: 'All passengers should proceed to the boarding gate.',
+    japanese: '全ての乗客は搭乗ゲートへお進みください。',
+    explanation: 'Part4のアナウンス問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'b8-p4',
+    english: 'The store will close at 8 PM today.',
+    japanese: '店舗は本日午後8時に閉店します。',
+    explanation: 'Part4のアナウンス問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'b9-p4',
+    english: 'Please make sure you have all your belongings before leaving the train.',
+    japanese: '電車を降りる前に、お持ち物をご確認ください。',
+    explanation: 'Part4のアナウンス問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'b10-p4',
+    english: 'The museum will open at 9 AM tomorrow.',
+    japanese: '博物館は明日午前9時に開館します。',
+    explanation: 'Part4のアナウンス問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'b11-p4',
+    english: 'Today\'s special menu includes grilled chicken and pasta.',
+    japanese: '本日の特別メニューはグリルチキンとパスタです。',
+    explanation: 'Part4のアナウンス問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'b12-p4',
+    english: 'The meeting will begin in five minutes in the conference room.',
+    japanese: '会議は5分後に会議室で始まります。',
+    explanation: 'Part4のアナウンス問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'i3-p4',
+    english: 'We would like to inform you that our operating hours will be extended during the holiday season.',
+    japanese: '休暇シーズン中は営業時間を延長することをお知らせします。',
+    explanation: 'Part4のアナウンス問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'i4-p4',
+    english: 'The quarterly results will be announced at the shareholders meeting next Thursday.',
+    japanese: '四半期の業績は来週木曜日の株主総会で発表されます。',
+    explanation: 'Part4のアナウンス問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'i5-p4',
+    english: 'Passengers are advised to arrive at least two hours before their scheduled departure time.',
+    japanese: '乗客の皆様は、予定出発時刻の少なくとも2時間前に到着されることをお勧めします。',
+    explanation: 'Part4のアナウンス問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'i6-p4',
+    english: 'The management is pleased to announce a 10% increase in annual bonuses this year.',
+    japanese: '経営陣は、今年の年間ボーナスが10%増額されることをお知らせできることを嬉しく思います。',
+    explanation: 'Part4のアナウンス問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'i7-p4',
+    english: 'Due to the unexpected weather conditions, some flights may experience delays.',
+    japanese: '予期せぬ天候のため、一部のフライトに遅延が発生する可能性があります。',
+    explanation: 'Part4のアナウンス問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'i8-p4',
+    english: 'Customers who purchase items online can now pick them up at any of our retail locations.',
+    japanese: 'オンラインで商品を購入されたお客様は、当社の小売店舗で商品を受け取ることができるようになりました。',
+    explanation: 'Part4のアナウンス問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'i9-p4',
+    english: 'The company has implemented a flexible work schedule starting next month.',
+    japanese: '会社は来月からフレックスタイム制を導入しました。',
+    explanation: 'Part4のアナウンス問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'i10-p4',
+    english: 'We are currently experiencing technical difficulties with our online reservation system.',
+    japanese: '現在、オンライン予約システムに技術的な問題が発生しています。',
+    explanation: 'Part4のアナウンス問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'i11-p4',
+    english: 'The quarterly sales report indicates a significant improvement in the eastern region.',
+    japanese: '四半期の売上レポートによると、東部地域で大幅な改善が見られます。',
+    explanation: 'Part4のアナウンス問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'i12-p4',
+    english: 'Participants are required to submit their registration forms by the end of this week.',
+    japanese: '参加者は今週末までに登録フォームを提出する必要があります。',
+    explanation: 'Part4のアナウンス問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'i13-p4',
+    english: 'The annual employee satisfaction survey will be distributed electronically next Monday.',
+    japanese: '年次従業員満足度調査は、来週月曜日に電子的に配布される予定です。',
+    explanation: 'Part4のアナウンス問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'i14-p4',
+    english: 'This is to inform you that the scheduled maintenance of our server will begin at midnight.',
+    japanese: '予定されているサーバーのメンテナンスは深夜0時に開始されることをお知らせします。',
+    explanation: 'Part4のアナウンス問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'i15-p4',
+    english: 'We are pleased to announce that our company has been awarded the industry excellence award.',
+    japanese: '当社が業界優秀賞を受賞したことをお知らせできることを嬉しく思います。',
+    explanation: 'Part4のアナウンス問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'a4-p4',
+    english: 'Despite the economic uncertainties, our company has demonstrated remarkable resilience in the market.',
+    japanese: '経済的な不確実性にもかかわらず、当社は市場で顕著な回復力を示しています。',
+    explanation: 'Part4のスピーチ問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part4',
+    category: 'スピーチ'
+  },
+  {
+    id: 'a5-p4',
+    english: 'The strategic restructuring of our operations aims to enhance efficiency while maintaining our commitment to quality.',
+    japanese: '当社の業務の戦略的な再構築は、品質へのコミットメントを維持しながら効率性を向上させることを目的としています。',
+    explanation: 'Part4のスピーチ問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part4',
+    category: 'スピーチ'
+  },
+  {
+    id: 'a6-p4',
+    english: 'In light of recent developments, we have revised our projection for the upcoming fiscal year.',
+    japanese: '最近の動向を踏まえて、来年度の予測を修正しました。',
+    explanation: 'Part4のスピーチ問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part4',
+    category: 'スピーチ'
+  },
+  {
+    id: 'a7-p4',
+    english: 'The quarterly earnings report exceeded analysts\' expectations, reflecting robust growth across all business segments.',
+    japanese: '四半期決算報告書はアナリストの予想を上回り、すべての事業セグメントで力強い成長を反映しています。',
+    explanation: 'Part4のスピーチ問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part4',
+    category: 'スピーチ'
+  },
+  {
+    id: 'a8-p4',
+    english: 'We are implementing stringent cost-cutting measures to offset the impact of rising raw material prices.',
+    japanese: '原材料価格の上昇の影響を相殺するために、厳格なコスト削減対策を実施しています。',
+    explanation: 'Part4のスピーチ問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part4',
+    category: 'スピーチ'
+  },
+  {
+    id: 'a9-p4',
+    english: 'The Board of Directors has unanimously approved the proposed acquisition of our primary competitor.',
+    japanese: '取締役会は、主要な競合他社の買収提案を満場一致で承認しました。',
+    explanation: 'Part4のスピーチ問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part4',
+    category: 'スピーチ'
+  },
+  {
+    id: 'a10-p4',
+    english: 'Our comprehensive analysis of market trends indicates a significant shift towards sustainable products.',
+    japanese: '市場動向の総合的な分析によると、持続可能な製品への大きなシフトが示されています。',
+    explanation: 'Part4のスピーチ問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part4',
+    category: 'スピーチ'
+  },
+  {
+    id: 'a11-p4',
+    english: 'The integration of artificial intelligence into our operational processes has yielded unprecedented efficiency gains.',
+    japanese: '人工知能を業務プロセスに統合することで、前例のない効率性の向上が得られました。',
+    explanation: 'Part4のスピーチ問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part4',
+    category: 'スピーチ'
+  },
+  {
+    id: 'a12-p4',
+    english: 'We are delighted to unveil our groundbreaking innovation that will revolutionize the industry.',
+    japanese: '業界に革命をもたらす画期的なイノベーションを発表できることを嬉しく思います。',
+    explanation: 'Part4のスピーチ問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part4',
+    category: 'スピーチ'
+  },
+  {
+    id: 'a13-p4',
+    english: 'Despite challenging market conditions, our company has maintained a robust financial position.',
+    japanese: '厳しい市場環境にもかかわらず、当社は強固な財務状況を維持しています。',
+    explanation: 'Part4のスピーチ問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part4',
+    category: 'スピーチ'
+  },
+  {
+    id: 'a14-p4',
+    english: 'The implementation of our strategic initiatives has resulted in substantial improvement in operational metrics.',
+    japanese: '戦略的取り組みの実施により、業務指標が大幅に改善されました。',
+    explanation: 'Part4のスピーチ問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part4',
+    category: 'スピーチ'
+  },
+  {
+    id: 'a15-p4',
+    english: 'Our commitment to environmental sustainability is reflected in our comprehensive carbon neutrality strategy.',
+    japanese: '環境の持続可能性へのコミットメントは、包括的なカーボンニュートラル戦略に反映されています。',
+    explanation: 'Part4のスピーチ問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part4',
+    category: 'スピーチ'
+  },
+  // Part5（短文穴埋め問題）
+  {
+    id: 'i1-p5',
+    english: 'The report highlights the importance of sustainable development in emerging markets.',
+    japanese: 'そのレポートは新興市場における持続可能な開発の重要性を強調しています。',
+    explanation: 'Part5の文法問題でよく使われる中級レベルの表現です。highlightsは「強調する」という意味です。',
+    level: '500-700',
+    part: 'Part5',
+    category: '報告書'
+  },
+  {
+    id: 'i2-p5',
+    english: 'Employees are encouraged to participate in the company\'s wellness program.',
+    japanese: '従業員は会社のウェルネスプログラムへの参加を奨励されています。',
+    explanation: 'Part5の文法問題でよく使われる中級レベルの表現です。be encouraged toは「〜するよう奨励される」という受動態の表現です。',
+    level: '500-700',
+    part: 'Part5',
+    category: '社内制度'
+  },
+  // Part5の追加フレーズ
+  {
+    id: 'b1-p5',
+    english: 'The manager asked me to submit the report by Friday.',
+    japanese: 'マネージャーは金曜日までにレポートを提出するよう私に依頼しました。',
+    explanation: 'Part5の文法問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part5',
+    category: '業務連絡'
+  },
+  {
+    id: 'b2-p5',
+    english: 'She has been working for this company for five years.',
+    japanese: '彼女はこの会社に5年間勤務しています。',
+    explanation: 'Part5の文法問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part5',
+    category: '職歴'
+  },
+  {
+    id: 'b3-p5',
+    english: 'The new policy will be implemented next month.',
+    japanese: '新しい方針は来月から実施されます。',
+    explanation: 'Part5の文法問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part5',
+    category: '会社方針'
+  },
+  {
+    id: 'b4-p5',
+    english: 'We need to finish this project before the deadline.',
+    japanese: '期限までにこのプロジェクトを完了させる必要があります。',
+    explanation: 'Part5の文法問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part5',
+    category: 'プロジェクト管理'
+  },
+  {
+    id: 'b5-p5',
+    english: 'The meeting was postponed until next Wednesday.',
+    japanese: '会議は来週の水曜日まで延期されました。',
+    explanation: 'Part5の文法問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part5',
+    category: 'スケジュール'
+  },
+  {
+    id: 'b6-p5',
+    english: 'He is responsible for the sales department.',
+    japanese: '彼は営業部を担当しています。',
+    explanation: 'Part5の文法問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part5',
+    category: '職場'
+  },
+  {
+    id: 'b7-p5',
+    english: 'The store opens at 9 AM every day.',
+    japanese: '店舗は毎日午前9時に開店します。',
+    explanation: 'Part5の文法問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part5',
+    category: '営業時間'
+  },
+  {
+    id: 'b8-p5',
+    english: 'Please fill out this application form.',
+    japanese: 'この申込書にご記入ください。',
+    explanation: 'Part5の文法問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part5',
+    category: '指示'
+  },
+  {
+    id: 'b9-p5',
+    english: 'The train will arrive in ten minutes.',
+    japanese: '電車は10分後に到着します。',
+    explanation: 'Part5の文法問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part5',
+    category: '交通'
+  },
+  {
+    id: 'b10-p5',
+    english: 'All employees must attend the safety training.',
+    japanese: '全従業員は安全研修に出席しなければなりません。',
+    explanation: 'Part5の文法問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part5',
+    category: '社内研修'
+  },
+  {
+    id: 'b11-p5',
+    english: 'The company will hire new staff members next month.',
+    japanese: '会社は来月新しいスタッフを雇用します。',
+    explanation: 'Part5の文法問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part5',
+    category: '採用'
+  },
+  {
+    id: 'b12-p5',
+    english: 'Please turn off the lights when you leave the office.',
+    japanese: '事務所を出るときは電気を消してください。',
+    explanation: 'Part5の文法問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part5',
+    category: '指示'
+  },
+  {
+    id: 'b13-p5',
+    english: 'The conference will be held in the main hall.',
+    japanese: '会議はメインホールで開催されます。',
+    explanation: 'Part5の文法問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part5',
+    category: 'イベント'
+  },
+  {
+    id: 'b14-p5',
+    english: 'You need to sign this document before submitting it.',
+    japanese: '提出する前にこの書類に署名する必要があります。',
+    explanation: 'Part5の文法問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part5',
+    category: '手続き'
+  },
+  {
+    id: 'b15-p5',
+    english: 'The customer requested a refund for the damaged product.',
+    japanese: '顧客は損傷した製品の返金を要求しました。',
+    explanation: 'Part5の文法問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part5',
+    category: '顧客対応'
+  },
+  {
+    id: 'i3-p5',
+    english: 'The sales figures have exceeded our expectations for the third consecutive quarter.',
+    japanese: '売上高は3四半期連続で予想を上回っています。',
+    explanation: 'Part5の文法問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part5',
+    category: '売上報告'
+  },
+  {
+    id: 'i4-p5',
+    english: 'Candidates for the position should submit their resumes by the end of next week.',
+    japanese: 'その職位の候補者は来週末までに履歴書を提出する必要があります。',
+    explanation: 'Part5の文法問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part5',
+    category: '採用'
+  },
+  {
+    id: 'i5-p5',
+    english: 'The proposal was rejected due to insufficient funding.',
+    japanese: '提案は資金不足のため却下されました。',
+    explanation: 'Part5の文法問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part5',
+    category: '提案'
+  },
+  {
+    id: 'i6-p5',
+    english: 'The management is considering restructuring the organization to improve efficiency.',
+    japanese: '経営陣は効率を向上させるために組織の再編を検討しています。',
+    explanation: 'Part5の文法問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part5',
+    category: '組織再編'
+  },
+  {
+    id: 'i7-p5',
+    english: 'All department heads are required to submit their budget proposals by the end of the month.',
+    japanese: '全部門長は月末までに予算案を提出することが求められています。',
+    explanation: 'Part5の文法問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part5',
+    category: '予算'
+  },
+  {
+    id: 'i8-p5',
+    english: 'The new marketing campaign has significantly increased brand awareness among target demographics.',
+    japanese: '新しいマーケティングキャンペーンは、ターゲット層の間でブランド認知度を大幅に高めました。',
+    explanation: 'Part5の文法問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part5',
+    category: 'マーケティング'
+  },
+  {
+    id: 'i9-p5',
+    english: 'The contract will be renewed automatically unless either party provides written notice.',
+    japanese: 'いずれかの当事者が書面による通知を提供しない限り、契約は自動的に更新されます。',
+    explanation: 'Part5の文法問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part5',
+    category: '契約'
+  },
+  {
+    id: 'i10-p5',
+    english: 'Applicants must have at least three years of relevant experience in the field.',
+    japanese: '応募者は、その分野で少なくとも3年の関連経験が必要です。',
+    explanation: 'Part5の文法問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part5',
+    category: '採用'
+  },
+  {
+    id: 'i11-p5',
+    english: 'The project team has successfully completed the first phase ahead of schedule.',
+    japanese: 'プロジェクトチームは予定より早く第一段階を無事に完了しました。',
+    explanation: 'Part5の文法問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part5',
+    category: 'プロジェクト'
+  },
+  {
+    id: 'i12-p5',
+    english: 'The annual conference will be held at the Grand Hotel from May 15 to 17.',
+    japanese: '年次会議は5月15日から17日までグランドホテルで開催されます。',
+    explanation: 'Part5の文法問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part5',
+    category: 'イベント'
+  },
+  {
+    id: 'i13-p5',
+    english: 'Employees are encouraged to provide feedback on the proposed changes to company policy.',
+    japanese: '従業員は、会社の方針の変更案についてフィードバックを提供することが奨励されています。',
+    explanation: 'Part5の文法問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part5',
+    category: '社内制度'
+  },
+  {
+    id: 'i14-p5',
+    english: 'Due to increased demand, we are expanding our production capacity.',
+    japanese: '需要の増加により、生産能力を拡大しています。',
+    explanation: 'Part5の文法問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part5',
+    category: '生産'
+  },
+  {
+    id: 'i15-p5',
+    english: 'The company has invested substantially in research and development over the past year.',
+    japanese: '同社は昨年、研究開発に多額の投資を行いました。',
+    explanation: 'Part5の文法問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part5',
+    category: '研究開発'
+  },
+  {
+    id: 'a3-p5',
+    english: 'The acquisition was finalized after extensive negotiations between the stakeholders.',
+    japanese: '買収は利害関係者間の広範な交渉の後に完了しました。',
+    explanation: 'Part5の文法問題でよく使われる上級レベルの表現です。',
     level: '700-900',
     part: 'Part5',
-    category: '経済'
+    category: 'M&A'
+  },
+  {
+    id: 'a4-p5',
+    english: 'The efficiency of the manufacturing process has been significantly improved through automation.',
+    japanese: '製造工程の効率は自動化によって大幅に向上しました。',
+    explanation: 'Part5の文法問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part5',
+    category: '製造'
+  },
+  {
+    id: 'a5-p5',
+    english: 'The board unanimously approved the CEO\'s innovative strategic plan.',
+    japanese: '取締役会はCEOの革新的な戦略計画を満場一致で承認しました。',
+    explanation: 'Part5の文法問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part5',
+    category: '経営戦略'
+  },
+  {
+    id: 'a6-p5',
+    english: 'The company\'s initiative to diversify its portfolio has been instrumental in mitigating market risks.',
+    japanese: '同社のポートフォリオを多様化する取り組みは、市場リスクを軽減する上で重要な役割を果たしています。',
+    explanation: 'Part5の文法問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part5',
+    category: '投資戦略'
+  },
+  {
+    id: 'a7-p5',
+    english: 'The implementation of blockchain technology has revolutionized our transaction processing capabilities.',
+    japanese: 'ブロックチェーン技術の導入により、取引処理能力が革命的に向上しました。',
+    explanation: 'Part5の文法問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part5',
+    category: 'テクノロジー'
+  },
+  {
+    id: 'a8-p5',
+    english: 'The quarterly earnings far surpassed analysts\' expectations, causing a notable surge in stock price.',
+    japanese: '四半期決算はアナリストの予想を大幅に上回り、株価の著しい急騰を引き起こしました。',
+    explanation: 'Part5の文法問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part5',
+    category: '財務'
+  },
+  {
+    id: 'a9-p5',
+    english: 'In accordance with regulatory requirements, all financial institutions must submit comprehensive compliance reports annually.',
+    japanese: '規制要件に従い、すべての金融機関は毎年包括的なコンプライアンス報告書を提出する必要があります。',
+    explanation: 'Part5の文法問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part5',
+    category: '規制'
+  },
+  {
+    id: 'a10-p5',
+    english: 'The multinational corporation has established strategic partnerships to facilitate expansion into emerging markets.',
+    japanese: '多国籍企業は、新興市場への拡大を促進するために戦略的パートナーシップを確立しました。',
+    explanation: 'Part5の文法問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part5',
+    category: '国際展開'
+  },
+  {
+    id: 'a11-p5',
+    english: 'Despite the challenging economic climate, the company has maintained consistent profitability through operational excellence.',
+    japanese: '厳しい経済環境にもかかわらず、同社は業務の卓越性を通じて一貫した収益性を維持しています。',
+    explanation: 'Part5の文法問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part5',
+    category: '経営実績'
+  },
+  {
+    id: 'a12-p5',
+    english: 'The CEO emphasized the importance of fostering a culture of innovation throughout the organization.',
+    japanese: 'CEOは組織全体で革新の文化を育むことの重要性を強調しました。',
+    explanation: 'Part5の文法問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part5',
+    category: '企業文化'
+  },
+  {
+    id: 'a13-p5',
+    english: 'The comprehensive audit revealed several areas where compliance procedures could be enhanced.',
+    japanese: '包括的な監査により、コンプライアンス手続きを強化できる複数の分野が明らかになりました。',
+    explanation: 'Part5の文法問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part5',
+    category: '監査'
+  },
+  {
+    id: 'a14-p5',
+    english: 'The company\'s sustainability initiatives have garnered significant recognition from environmental advocacy groups.',
+    japanese: '同社の持続可能性への取り組みは、環境擁護団体から大きな評価を得ています。',
+    explanation: 'Part5の文法問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part5',
+    category: '環境'
+  },
+  {
+    id: 'a15-p5',
+    english: 'The rapid technological advancement necessitates continuous adaptation of our business strategies.',
+    japanese: '急速な技術進歩により、ビジネス戦略の継続的な適応が必要になります。',
+    explanation: 'Part5の文法問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part5',
+    category: 'ビジネス戦略'
+  },
+  {
+    id: 'a16-p5',
+    english: 'The merger between the two industry leaders is expected to create substantial synergies.',
+    japanese: '業界大手2社の合併により、大きなシナジー効果が生まれると期待されています。',
+    explanation: 'Part5の文法問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part5',
+    category: 'M&A'
+  },
+  {
+    id: 'a17-p5',
+    english: 'The stakeholders unanimously endorsed the proposed restructuring plan for the organization.',
+    japanese: '利害関係者は組織の再編案を満場一致で承認しました。',
+    explanation: 'Part5の文法問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part5',
+    category: '組織再編'
   },
   // Part6（長文穴埋め問題）
   {
-    id: 'a1-p6',
-    english: 'We are delighted to announce the appointment of Dr. Johnson as our new Chief Research Officer.',
-    japanese: 'ジョンソン博士を新しい最高研究責任者として任命したことをお知らせできることを嬉しく思います。',
-    explanation: 'Part6のビジネスメール問題でよく使われる上級レベルの表現です。appointmentは「任命」という意味です。',
-    level: '700-900',
+    id: 'i1-p6',
+    english: 'We are writing to inform you of changes to our privacy policy.',
+    japanese: '当社のプライバシーポリシーの変更についてお知らせするために書いています。',
+    explanation: 'Part6のビジネスメール問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
     part: 'Part6',
-    category: '人事'
+    category: 'ビジネスメール'
   },
   {
-    id: 'a2-p6',
-    english: 'The enclosed proposal outlines our comprehensive approach to addressing your organization\'s challenges.',
-    japanese: '同封の提案書は、貴組織の課題に対処するための当社の包括的なアプローチを概説しています。',
-    explanation: 'Part6のビジネスメール問題でよく使われる上級レベルの表現です。enclosedは「同封の」、outlinesは「概説する」という意味です。',
+    id: 'i2-p6',
+    english: 'Please note that this offer is valid until the end of the month.',
+    japanese: 'このオファーは月末まで有効ですのでご注意ください。',
+    explanation: 'Part6のビジネスメール問題でよく使われる中級レベルの表現です。Please noteは「ご注意ください」という意味です。',
+    level: '500-700',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  // Part6の追加フレーズ
+  {
+    id: 'b1-p6',
+    english: 'Thank you for your inquiry about our products.',
+    japanese: '当社の製品についてのお問い合わせありがとうございます。',
+    explanation: 'Part6のビジネスメール問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'b2-p6',
+    english: 'We look forward to your response.',
+    japanese: 'ご返答をお待ちしております。',
+    explanation: 'Part6のビジネスメール問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'b3-p6',
+    english: 'Please find attached the information you requested.',
+    japanese: 'ご要望のあった情報を添付しております。',
+    explanation: 'Part6のビジネスメール問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'b4-p6',
+    english: 'I apologize for the delay in our response.',
+    japanese: '返信が遅れたことをお詫び申し上げます。',
+    explanation: 'Part6のビジネスメール問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'b5-p6',
+    english: 'We are pleased to announce our new service.',
+    japanese: '新しいサービスを発表できることを嬉しく思います。',
+    explanation: 'Part6のビジネスメール問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'b6-p6',
+    english: 'Please let me know if you have any questions.',
+    japanese: 'ご質問がございましたら、お知らせください。',
+    explanation: 'Part6のビジネスメール問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'b7-p6',
+    english: 'We will contact you as soon as possible.',
+    japanese: '可能な限り早くご連絡いたします。',
+    explanation: 'Part6のビジネスメール問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'b8-p6',
+    english: 'We appreciate your business with us.',
+    japanese: 'お取引いただきありがとうございます。',
+    explanation: 'Part6のビジネスメール問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'b9-p6',
+    english: 'Please confirm receipt of this email.',
+    japanese: 'このメールを受け取ったことをご確認ください。',
+    explanation: 'Part6のビジネスメール問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'b10-p6',
+    english: 'I am writing in response to your inquiry.',
+    japanese: 'お問い合わせに対する返信を差し上げます。',
+    explanation: 'Part6のビジネスメール問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'b11-p6',
+    english: 'Please see the attached document for details.',
+    japanese: '詳細については、添付の文書をご覧ください。',
+    explanation: 'Part6のビジネスメール問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'b12-p6',
+    english: 'Thank you for your prompt response.',
+    japanese: '迅速なご返信をありがとうございます。',
+    explanation: 'Part6のビジネスメール問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'b13-p6',
+    english: 'We look forward to hearing from you soon.',
+    japanese: '近いうちにご連絡いただけることを楽しみにしております。',
+    explanation: 'Part6のビジネスメール問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'b14-p6',
+    english: 'Please complete the form by Friday.',
+    japanese: '金曜日までにフォームを記入してください。',
+    explanation: 'Part6のビジネスメール問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'b15-p6',
+    english: 'If you need any assistance, please let us know.',
+    japanese: 'ご不明な点がございましたら、お知らせください。',
+    explanation: 'Part6のビジネスメール問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'i3-p6',
+    english: 'We would like to schedule a meeting to discuss the details of our proposal.',
+    japanese: '当社の提案の詳細について話し合うための会議を設定したいと思います。',
+    explanation: 'Part6のビジネスメール問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'i4-p6',
+    english: 'In response to your request, we have extended the deadline to April 15.',
+    japanese: 'ご要望にお応えして、期限を4月15日まで延長しました。',
+    explanation: 'Part6のビジネスメール問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'i5-p6',
+    english: 'We regret to inform you that your application has not been successful.',
+    japanese: '誠に残念ながら、あなたの申請は成功しなかったことをお知らせします。',
+    explanation: 'Part6のビジネスメール問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'i6-p6',
+    english: 'Please be informed that our office will be relocating to a new address effective July 1st.',
+    japanese: '当社のオフィスは7月1日より新住所に移転することをお知らせいたします。',
+    explanation: 'Part6のビジネスメール問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'i7-p6',
+    english: 'We are pleased to announce that our company has been awarded the industry excellence certificate.',
+    japanese: '当社が業界優秀賞を受賞したことをお知らせできることを嬉しく思います。',
+    explanation: 'Part6のビジネスメール問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'i8-p6',
+    english: 'Due to unforeseen circumstances, we regret to inform you that the event has been postponed.',
+    japanese: '予期せぬ事情により、イベントが延期されたことをお知らせいたします。',
+    explanation: 'Part6のビジネスメール問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'i9-p6',
+    english: 'We are currently experiencing technical difficulties with our online payment system.',
+    japanese: '現在、オンライン決済システムに技術的な問題が発生しています。',
+    explanation: 'Part6のビジネスメール問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'i10-p6',
+    english: 'In response to your inquiry regarding our product specifications, I have attached the detailed information.',
+    japanese: '当社製品の仕様に関するお問い合わせに対し、詳細情報を添付いたしました。',
+    explanation: 'Part6のビジネスメール問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'i11-p6',
+    english: 'We kindly request your feedback on the proposed changes to our service agreement.',
+    japanese: 'サービス契約の変更案についてのご意見をお願いいたします。',
+    explanation: 'Part6のビジネスメール問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'i12-p6',
+    english: 'This email serves as a reminder that the quarterly sales reports are due by the end of this week.',
+    japanese: 'このメールは、四半期の販売報告書が今週末までに提出されることを思い出させる目的です。',
+    explanation: 'Part6のビジネスメール問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'i13-p6',
+    english: 'Our company will be implementing a new employee training program starting next month.',
+    japanese: '当社は来月から新しい従業員研修プログラムを実施します。',
+    explanation: 'Part6のビジネスメール問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'i14-p6',
+    english: 'We would like to take this opportunity to express our appreciation for your ongoing support.',
+    japanese: 'この機会に、皆様の継続的なサポートに感謝の意を表したいと思います。',
+    explanation: 'Part6のビジネスメール問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'i15-p6',
+    english: 'Please be advised that there has been a change in our company\'s privacy policy.',
+    japanese: '当社のプライバシーポリシーに変更があったことをお知らせいたします。',
+    explanation: 'Part6のビジネスメール問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'a3-p6',
+    english: 'We are pleased to extend an invitation to you for our annual industry conference.',
+    japanese: '年次業界カンファレンスへのご招待状をお送りできることを嬉しく思います。',
+    explanation: 'Part6のビジネスメール問題でよく使われる上級レベルの表現です。',
     level: '700-900',
     part: 'Part6',
-    category: '提案書'
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'a4-p6',
+    english: 'I am writing to express our sincere gratitude for your continued support.',
+    japanese: '日頃のご支援に心より感謝の意を表するためにお手紙を差し上げます。',
+    explanation: 'Part6のビジネスメール問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'a5-p6',
+    english: 'The attached document outlines our comprehensive approach to addressing the concerns raised in your previous correspondence.',
+    japanese: '添付の文書は、以前のご連絡で提起された懸念に対処するための当社の包括的なアプローチを概説しています。',
+    explanation: 'Part6のビジネスメール問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'a6-p6',
+    english: 'We would like to formally acknowledge receipt of your proposal dated June 15th and express our interest in exploring potential collaboration opportunities.',
+    japanese: '6月15日付けのご提案を正式に受領し、潜在的な協力の機会を模索することに関心があることを表明したいと思います。',
+    explanation: 'Part6のビジネスメール問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'a7-p6',
+    english: 'In light of the recent market developments, we are revising our strategic approach to better position ourselves within the competitive landscape.',
+    japanese: '最近の市場動向を踏まえ、競争環境の中で自社の位置付けをより良くするために戦略的アプローチを見直しています。',
+    explanation: 'Part6のビジネスメール問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'a8-p6',
+    english: 'The quarterly financial statements, which have been meticulously prepared by our accounting department, are now available for your review.',
+    japanese: '会計部門によって入念に作成された四半期決算報告書が、現在ご確認いただけます。',
+    explanation: 'Part6のビジネスメール問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'a9-p6',
+    english: 'We are pleased to inform you that the Board of Directors has unanimously approved the proposed expansion project, contingent upon securing adequate financing.',
+    japanese: '取締役会が十分な資金調達を条件として、提案された拡張プロジェクトを満場一致で承認したことをお知らせできることを嬉しく思います。',
+    explanation: 'Part6のビジネスメール問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'a10-p6',
+    english: 'Following an extensive evaluation process, we have identified several areas where operational efficiencies could be substantially improved.',
+    japanese: '広範な評価プロセスを経て、業務効率が大幅に改善される可能性のある領域をいくつか特定しました。',
+    explanation: 'Part6のビジネスメール問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'a11-p6',
+    english: 'We would like to extend our sincere appreciation for your invaluable contributions to the successful completion of the project ahead of schedule.',
+    japanese: 'プロジェクトの予定よりも早い完了に対するあなたの貴重な貢献に心から感謝の意を表したいと思います。',
+    explanation: 'Part6のビジネスメール問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'a12-p6',
+    english: 'In accordance with regulatory requirements, we are implementing enhanced security protocols to safeguard sensitive customer information.',
+    japanese: '規制要件に従って、機密性の高い顧客情報を保護するために強化されたセキュリティプロトコルを実装しています。',
+    explanation: 'Part6のビジネスメール問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'a13-p6',
+    english: 'The comprehensive market analysis provided by our research team suggests a significant opportunity for market penetration in the emerging economies.',
+    japanese: '当社の研究チームが提供した包括的な市場分析は、新興経済圏での市場浸透に大きな機会があることを示唆しています。',
+    explanation: 'Part6のビジネスメール問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'a14-p6',
+    english: 'We are currently in the process of reassessing our global supply chain strategy to mitigate potential disruptions caused by geopolitical uncertainties.',
+    japanese: '現在、地政学的不確実性によって引き起こされる潜在的な混乱を軽減するために、グローバルサプライチェーン戦略を再評価しているところです。',
+    explanation: 'Part6のビジネスメール問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'a15-p6',
+    english: 'The enclosed prospectus delineates the strategic vision and projected financial performance of our organization for the upcoming fiscal year.',
+    japanese: '同封の目論見書には、来年度の当組織の戦略的ビジョンと予測財務実績が記載されています。',
+    explanation: 'Part6のビジネスメール問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part6',
+    category: 'ビジネスメール'
   },
   // Part7（読解問題）
   {
-    id: 'a1-p7',
-    english: 'The regulatory framework is designed to ensure compliance with international standards while fostering innovation.',
-    japanese: '規制の枠組みは、イノベーションを促進しながら国際基準への準拠を確保するように設計されています。',
-    explanation: 'Part7の読解問題でよく使われる上級レベルの表現です。regulatory frameworkは「規制の枠組み」、fosteringは「促進する」という意味です。',
-    level: '700-900',
+    id: 'i1-p7',
+    english: 'The survey indicates that consumer confidence has increased by 5% since last quarter.',
+    japanese: '調査によると、消費者信頼感は前四半期から5%上昇しています。',
+    explanation: 'Part7の読解問題でよく使われる中級レベルの表現です。indicatesは「示す」という意味です。',
+    level: '500-700',
     part: 'Part7',
-    category: '規制・法令'
+    category: '市場調査'
   },
   {
-    id: 'a2-p7',
-    english: 'The annual report highlights the company\'s commitment to sustainable practices and corporate social responsibility.',
-    japanese: '年次報告書は、持続可能な実践と企業の社会的責任に対する会社のコミットメントを強調しています。',
-    explanation: 'Part7の読解問題でよく使われる上級レベルの表現です。commitmentは「コミットメント」、corporate social responsibilityは「企業の社会的責任」という意味です。',
+    id: 'i2-p7',
+    english: 'Despite initial concerns, the merger has proven to be beneficial for both companies.',
+    japanese: '当初の懸念にもかかわらず、合併は両社にとって有益であることが証明されました。',
+    explanation: 'Part7の読解問題でよく使われる中級レベルの表現です。Despiteは「〜にもかかわらず」という意味です。',
+    level: '500-700',
+    part: 'Part7',
+    category: 'ビジネスニュース'
+  },
+  // Part7の追加フレーズ
+  {
+    id: 'b1-p7',
+    english: 'The company will hold its annual meeting on May 15.',
+    japanese: '会社は5月15日に年次総会を開催します。',
+    explanation: 'Part7の読解問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part7',
+    category: '会社通知'
+  },
+  {
+    id: 'b2-p7',
+    english: 'According to the report, sales increased by 10% last year.',
+    japanese: 'レポートによると、売上高は昨年10%増加しました。',
+    explanation: 'Part7の読解問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part7',
+    category: '報告書'
+  },
+  {
+    id: 'b3-p7',
+    english: 'The restaurant is open from 11 AM to 10 PM daily.',
+    japanese: 'レストランは毎日午前11時から午後10時まで営業しています。',
+    explanation: 'Part7の読解問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part7',
+    category: '営業情報'
+  },
+  {
+    id: 'b4-p7',
+    english: 'Please contact our customer service for more information.',
+    japanese: '詳細については、カスタマーサービスにお問い合わせください。',
+    explanation: 'Part7の読解問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part7',
+    category: '顧客サービス'
+  },
+  {
+    id: 'b5-p7',
+    english: 'The museum will be closed for renovation until March 1.',
+    japanese: '美術館は3月1日まで改装のため閉館します。',
+    explanation: 'Part7の読解問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part7',
+    category: '施設情報'
+  },
+  {
+    id: 'b6-p7',
+    english: 'The office hours are from 9 AM to 5 PM, Monday through Friday.',
+    japanese: 'オフィスの営業時間は月曜から金曜の午前9時から午後5時までです。',
+    explanation: 'Part7の読解問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part7',
+    category: '営業情報'
+  },
+  {
+    id: 'b7-p7',
+    english: 'Tickets for the concert are available at the box office.',
+    japanese: 'コンサートのチケットはチケット売り場で購入できます。',
+    explanation: 'Part7の読解問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part7',
+    category: 'イベント'
+  },
+  {
+    id: 'b8-p7',
+    english: 'All employees must attend the safety training next week.',
+    japanese: '全従業員は来週の安全研修に参加する必要があります。',
+    explanation: 'Part7の読解問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part7',
+    category: '社内通知'
+  },
+  {
+    id: 'b9-p7',
+    english: 'The new product will be available in stores starting next month.',
+    japanese: '新製品は来月から店頭で販売されます。',
+    explanation: 'Part7の読解問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part7',
+    category: '製品情報'
+  },
+  {
+    id: 'b10-p7',
+    english: 'Please fill out the application form and submit it by Friday.',
+    japanese: '申込書に記入して金曜日までに提出してください。',
+    explanation: 'Part7の読解問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part7',
+    category: '指示'
+  },
+  {
+    id: 'b11-p7',
+    english: 'The meeting has been rescheduled for Tuesday at 2 PM.',
+    japanese: '会議は火曜日の午後2時に変更されました。',
+    explanation: 'Part7の読解問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part7',
+    category: 'スケジュール'
+  },
+  {
+    id: 'b12-p7',
+    english: 'All visitors must sign in at the reception desk.',
+    japanese: '全ての訪問者は受付で署名する必要があります。',
+    explanation: 'Part7の読解問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part7',
+    category: '規則'
+  },
+  {
+    id: 'b13-p7',
+    english: 'The library will be open until 9 PM during exam week.',
+    japanese: '試験期間中、図書館は午後9時まで開館しています。',
+    explanation: 'Part7の読解問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part7',
+    category: '施設情報'
+  },
+  {
+    id: 'b14-p7',
+    english: 'We are looking for volunteers to help with the charity event.',
+    japanese: 'チャリティイベントを手伝うボランティアを探しています。',
+    explanation: 'Part7の読解問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part7',
+    category: '募集'
+  },
+  {
+    id: 'b18-p7',
+    english: 'The deadline for submitting the report is next Monday.',
+    japanese: 'レポート提出の締め切りは来週の月曜日です。',
+    explanation: 'Part7の読解問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part7',
+    category: '期限'
+  },
+  {
+    id: 'i3-p7',
+    english: 'The article discusses the potential impact of artificial intelligence on the job market.',
+    japanese: 'この記事は人工知能が労働市場に与える潜在的な影響について論じています。',
+    explanation: 'Part7の読解問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part7',
+    category: 'テクノロジー'
+  },
+  {
+    id: 'i4-p7',
+    english: 'According to the research, remote work has led to increased productivity for many companies.',
+    japanese: '研究によると、リモートワークは多くの企業の生産性向上につながっています。',
+    explanation: 'Part7の読解問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part7',
+    category: '働き方'
+  },
+  {
+    id: 'i5-p7',
+    english: 'The environmental impact assessment report recommends several measures to reduce carbon emissions.',
+    japanese: '環境影響評価報告書は、炭素排出量を削減するためのいくつかの対策を推奨しています。',
+    explanation: 'Part7の読解問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part7',
+    category: '環境'
+  },
+  {
+    id: 'i6-p7',
+    english: 'The company has implemented a new customer relationship management system to improve service quality.',
+    japanese: '同社はサービス品質を向上させるために、新しい顧客関係管理システムを導入しました。',
+    explanation: 'Part7の読解問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part7',
+    category: '顧客サービス'
+  },
+  {
+    id: 'i7-p7',
+    english: 'According to the annual report, the company\'s revenue grew by 12% compared to the previous fiscal year.',
+    japanese: '年次報告書によると、同社の収益は前会計年度と比較して12%成長しました。',
+    explanation: 'Part7の読解問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part7',
+    category: '財務'
+  },
+  {
+    id: 'i8-p7',
+    english: 'The new marketing strategy focuses on engaging with customers through social media platforms.',
+    japanese: '新しいマーケティング戦略は、ソーシャルメディアプラットフォームを通じて顧客と関わることに重点を置いています。',
+    explanation: 'Part7の読解問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part7',
+    category: 'マーケティング'
+  },
+  {
+    id: 'i9-p7',
+    english: 'The human resources department has announced changes to the employee benefits package.',
+    japanese: '人事部門は従業員福利厚生パッケージの変更を発表しました。',
+    explanation: 'Part7の読解問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part7',
+    category: '人事'
+  },
+  {
+    id: 'i10-p7',
+    english: 'The industry conference will feature keynote speakers from leading technology companies.',
+    japanese: '業界カンファレンスでは、主要テクノロジー企業からの基調講演者が登場します。',
+    explanation: 'Part7の読解問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part7',
+    category: 'イベント'
+  },
+  {
+    id: 'i11-p7',
+    english: 'The survey results indicate growing consumer interest in sustainable products.',
+    japanese: '調査結果は、持続可能な製品に対する消費者の関心の高まりを示しています。',
+    explanation: 'Part7の読解問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part7',
+    category: '市場調査'
+  },
+  {
+    id: 'i12-p7',
+    english: 'The company is currently negotiating with potential partners to expand its distribution network.',
+    japanese: '同社は現在、流通ネットワークを拡大するために潜在的なパートナーと交渉しています。',
+    explanation: 'Part7の読解問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part7',
+    category: 'ビジネス戦略'
+  },
+  {
+    id: 'i13-p7',
+    english: 'The project timeline has been adjusted to accommodate additional stakeholder feedback.',
+    japanese: '追加の利害関係者からのフィードバックに対応するため、プロジェクトのタイムラインが調整されました。',
+    explanation: 'Part7の読解問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part7',
+    category: 'プロジェクト管理'
+  },
+  {
+    id: 'i14-p7',
+    english: 'The regulatory change will require companies to update their compliance procedures.',
+    japanese: '規制の変更により、企業はコンプライアンス手順を更新する必要があります。',
+    explanation: 'Part7の読解問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part7',
+    category: '法規制'
+  },
+  {
+    id: 'i15-p7',
+    english: 'The economic outlook report predicts moderate growth in the coming year despite ongoing challenges.',
+    japanese: '経済見通しレポートは、継続的な課題にもかかわらず、来年には緩やかな成長が見込まれると予測しています。',
+    explanation: 'Part7の読解問題でよく使われる中級レベルの表現です。',
+    level: '500-700',
+    part: 'Part7',
+    category: '経済'
+  },
+  {
+    id: 'a3-p7',
+    english: 'The comprehensive analysis of market trends reveals shifts in consumer behavior across multiple demographics.',
+    japanese: '市場動向の包括的な分析は、複数の人口統計にわたる消費者行動の変化を明らかにしています。',
+    explanation: 'Part7の読解問題でよく使われる上級レベルの表現です。',
     level: '700-900',
     part: 'Part7',
-    category: '年次報告書'
+    category: '市場分析'
+  },
+  {
+    id: 'a4-p7',
+    english: 'The implementation of the new healthcare policy has elicited mixed responses from industry stakeholders.',
+    japanese: '新しい医療政策の実施は、業界関係者からさまざまな反応を引き起こしています。',
+    explanation: 'Part7の読解問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part7',
+    category: '医療政策'
+  },
+  {
+    id: 'a5-p7',
+    english: 'The financial statement reveals a substantial increase in operating costs attributed to global supply chain disruptions.',
+    japanese: '財務諸表は、グローバルサプライチェーンの混乱に起因する営業コストの大幅な増加を明らかにしています。',
+    explanation: 'Part7の読解問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part7',
+    category: '財務'
+  },
+  {
+    id: 'a6-p7',
+    english: 'The CEO\'s strategic vision encompasses diversification into emerging markets while maintaining a robust presence in established sectors.',
+    japanese: 'CEOの戦略的ビジョンは、既存のセクターでの強固なプレゼンスを維持しながら、新興市場への多角化を包含しています。',
+    explanation: 'Part7の読解問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part7',
+    category: '経営戦略'
+  },
+  {
+    id: 'a7-p7',
+    english: 'The multinational corporation has implemented a comprehensive sustainability framework aimed at reducing its environmental footprint across global operations.',
+    japanese: '多国籍企業は、グローバル業務全体で環境負荷を軽減することを目的とした包括的な持続可能性フレームワークを実施しました。',
+    explanation: 'Part7の読解問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part7',
+    category: '環境'
+  },
+  {
+    id: 'a8-p7',
+    english: 'The regulatory authority has issued a directive mandating enhanced transparency in financial reporting for all publicly traded companies.',
+    japanese: '規制当局は、すべての上場企業に対して財務報告の透明性向上を義務付ける指令を発行しました。',
+    explanation: 'Part7の読解問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part7',
+    category: '法規制'
+  },
+  {
+    id: 'a9-p7',
+    english: 'A comprehensive analysis of consumer behavior patterns indicates a significant shift toward digital platforms for retail purchases.',
+    japanese: '消費者行動パターンの包括的な分析は、小売購入のためにデジタルプラットフォームへの大きなシフトを示しています。',
+    explanation: 'Part7の読解問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part7',
+    category: '消費者動向'
+  },
+  {
+    id: 'a10-p7',
+    english: 'The acquisition presents synergistic opportunities for market expansion while simultaneously addressing competitive challenges in the industry.',
+    japanese: '買収は、業界の競争上の課題に同時に対処しながら、市場拡大のためのシナジー効果のある機会を提供します。',
+    explanation: 'Part7の読解問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part7',
+    category: 'M&A'
+  },
+  {
+    id: 'a11-p7',
+    english: 'The research publication elucidates the correlation between organizational culture and employee productivity in multinational environments.',
+    japanese: 'この研究出版物は、多国籍環境における組織文化と従業員の生産性の間の相関関係を解明しています。',
+    explanation: 'Part7の読解問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part7',
+    category: '組織研究'
+  },
+  {
+    id: 'a12-p7',
+    english: 'Despite economic headwinds, the quarterly earnings report demonstrates remarkable resilience, attributed primarily to strategic cost management initiatives.',
+    japanese: '経済的な逆風にもかかわらず、四半期の収益報告書は、主に戦略的なコスト管理イニシアチブによって、顕著な回復力を示しています。',
+    explanation: 'Part7の読解問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part7',
+    category: '財務'
+  },
+  {
+    id: 'a13-p7',
+    english: 'The technological innovation has revolutionized operational efficiency, garnering accolades from industry analysts for its transformative impact.',
+    japanese: '技術革新は業務効率を革命的に変え、その変革的な影響で業界アナリストからの賞賛を獲得しています。',
+    explanation: 'Part7の読解問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part7',
+    category: '技術革新'
+  },
+  {
+    id: 'a14-p7',
+    english: 'The comprehensive market analysis delineates emerging trends that are expected to fundamentally alter consumer engagement strategies.',
+    japanese: '包括的な市場分析は、消費者エンゲージメント戦略を根本的に変えると予想される新たなトレンドを描き出しています。',
+    explanation: 'Part7の読解問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part7',
+    category: '市場分析'
+  },
+  {
+    id: 'a15-p7',
+    english: 'The annual stakeholder meeting addressed concerns regarding corporate governance and long-term strategic initiatives in an increasingly competitive landscape.',
+    japanese: '年次の利害関係者会議では、ますます競争が激化する環境におけるコーポレートガバナンスと長期的な戦略的イニシアチブに関する懸念に対処しました。',
+    explanation: 'Part7の読解問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part7',
+    category: 'コーポレートガバナンス'
+  },
+  {
+    id: 'a16-p7',
+    english: 'The pharmaceutical company has announced a breakthrough in drug development, with clinical trials demonstrating unprecedented efficacy in treating the condition.',
+    japanese: '製薬会社は薬の開発における画期的な進歩を発表し、臨床試験ではその状態の治療において前例のない効果を示しています。',
+    explanation: 'Part7の読解問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part7',
+    category: '医薬品'
+  },
+  {
+    id: 'a17-p7',
+    english: 'The economic policy reform aims to stimulate growth while mitigating potential inflationary pressures through calibrated fiscal interventions.',
+    japanese: '経済政策改革は、調整された財政介入を通じてインフレの可能性を軽減しながら、成長を刺激することを目指しています。',
+    explanation: 'Part7の読解問題でよく使われる上級レベルの表現です。',
+    level: '700-900',
+    part: 'Part7',
+    category: '経済政策'
+  },
+  {
+    id: 'b13-p4',
+    english: 'This is a reminder that the company picnic will be held this Saturday.',
+    japanese: '会社のピクニックが今週の土曜日に開催されることをお知らせします。',
+    explanation: 'Part4のアナウンス問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'b14-p4',
+    english: 'The train to Central Station will depart from platform 3 in five minutes.',
+    japanese: 'セントラル駅行きの電車は5分後にプラットフォーム3から出発します。',
+    explanation: 'Part4のアナウンス問題でよく使われる基本的な表現です。',
+    level: '300-500',
+    part: 'Part4',
+    category: 'アナウンス'
+  },
+  {
+    id: 'b13-p5',
+    english: 'The company is looking for qualified candidates for the position.',
+    japanese: '会社はその職位に適格な候補者を探しています。',
+    explanation: 'Part5の文法問題でよく使われる表現です。lookingとforの関係に注目。',
+    level: '300-500',
+    part: 'Part5',
+    category: '求人・採用'
+  },
+  {
+    id: 'b14-p5',
+    english: 'Please submit your application form by the end of this month.',
+    japanese: '今月末までに申込書を提出してください。',
+    explanation: 'Part5の文法問題でよく使われる表現です。byの使い方に注目。',
+    level: '300-500',
+    part: 'Part5',
+    category: '締切・期限'
+  },
+  {
+    id: 'b15-p6',
+    english: 'We are pleased to announce our new product line.',
+    japanese: '新製品ラインの発表をお知らせできることを嬉しく思います。',
+    explanation: 'Part6のビジネスメール問題でよく使われる表現です。',
+    level: '300-500',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'b16-p6',
+    english: 'If you have any questions, please do not hesitate to contact us.',
+    japanese: 'ご質問がございましたら、お気軽にお問い合わせください。',
+    explanation: 'Part6のビジネスメール問題でよく使われる表現です。',
+    level: '300-500',
+    part: 'Part6',
+    category: 'ビジネスメール'
+  },
+  {
+    id: 'b17-p7',
+    english: 'According to the article, the company will expand its business next year.',
+    japanese: '記事によると、その会社は来年事業を拡大する予定です。',
+    explanation: 'Part7の読解問題でよく使われる表現です。According toの使い方に注目。',
+    level: '300-500',
+    part: 'Part7',
+    category: 'ビジネスニュース'
+  },
+  {
+    id: 'b16-p7',
+    english: 'The customer service department is available 24 hours a day.',
+    japanese: 'カスタマーサービス部門は24時間利用可能です。',
+    explanation: 'Part7の読解問題でよく使われる表現です。',
+    level: '300-500',
+    part: 'Part7',
+    category: 'サービス案内'
+  },
+  {
+    id: 'i16-p7',
+    english: 'The survey indicates that consumer confidence has increased by 5% since last quarter.',
+    japanese: '調査によると、消費者信頼感は前四半期から5%上昇しています。',
+    explanation: 'Part7の読解問題でよく使われる中級レベルの表現です。indicatesは「示す」という意味です。',
+    level: '500-700',
+    part: 'Part7',
+    category: '市場調査'
+  },
+  {
+    id: 'i17-p7',
+    english: 'Despite initial concerns, the merger has proven to be beneficial for both companies.',
+    japanese: '当初の懸念にもかかわらず、合併は両社にとって有益であることが証明されました。',
+    explanation: 'Part7の読解問題でよく使われる中級レベルの表現です。Despiteは「〜にもかかわらず」という意味です。',
+    level: '500-700',
+    part: 'Part7',
+    category: 'ビジネスニュース'
   }
 ];
 
+// メモ化のためのキャッシュ
+const phrasesCache = {
+  byLevel: {} as Record<ToeicLevel, Phrase[]>,
+  byPart: {} as Record<ToeicPart, Phrase[]>,
+  byLevelAndPart: {} as Record<string, Phrase[]>
+};
+
+// キャッシュをリセットする関数
+export const resetPhrasesCache = () => {
+  phrasesCache.byLevel = {};
+  phrasesCache.byPart = {};
+  phrasesCache.byLevelAndPart = {};
+};
+
 export const getPhrasesByLevel = (level: ToeicLevel): Phrase[] => {
-  return TOEIC_PHRASES.filter(phrase => phrase.level === level);
+  // キャッシュにあればそれを返す
+  if (phrasesCache.byLevel[level]) {
+    return phrasesCache.byLevel[level];
+  }
+  
+  const phrases = TOEIC_PHRASES.filter(phrase => phrase.level === level);
+  phrasesCache.byLevel[level] = phrases;
+  return phrases;
 };
 
 export const getPhrasesByPart = (part: ToeicPart): Phrase[] => {
-  return TOEIC_PHRASES.filter(phrase => phrase.part === part);
+  // キャッシュにあればそれを返す
+  if (phrasesCache.byPart[part]) {
+    return phrasesCache.byPart[part];
+  }
+  
+  const phrases = TOEIC_PHRASES.filter(phrase => phrase.part === part);
+  phrasesCache.byPart[part] = phrases;
+  return phrases;
 };
 
 export const getPhrasesByLevelAndPart = (level: ToeicLevel, part: ToeicPart): Phrase[] => {
-  return TOEIC_PHRASES.filter(phrase => phrase.level === level && phrase.part === part);
+  // キャッシュキーを生成
+  const cacheKey = `${level}-${part}`;
+  
+  // キャッシュにあればそれを返す
+  if (phrasesCache.byLevelAndPart[cacheKey]) {
+    return phrasesCache.byLevelAndPart[cacheKey];
+  }
+  
+  // 直接フィルタリングして新しい配列を返す
+  const phrases = TOEIC_PHRASES.filter(phrase => 
+    phrase.level === level && phrase.part === part
+  );
+  
+  // キャッシュに保存
+  phrasesCache.byLevelAndPart[cacheKey] = phrases;
+  
+  return phrases;
 }; 

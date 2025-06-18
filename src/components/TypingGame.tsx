@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Phrase, ToeicLevel, ToeicPart, getPhrasesByLevelAndPart } from '@/data/toeicPhrases';
+import { updatePhraseProgress } from '@/utils/progressStorage';
 
 interface GameState {
   currentPhrase: Phrase | null;
@@ -20,6 +21,7 @@ interface GameState {
   isCorrect: boolean;
   feedbackMessage: string;
   usedPhraseIds: string[];
+  audioInitialized: boolean;
 }
 
 interface TypingGameProps {
@@ -28,7 +30,7 @@ interface TypingGameProps {
   onGameEnd: (score: number, wpm: number, accuracy: number) => void;
 }
 
-const QUESTIONS_TO_COMPLETE = 5;
+const QUESTIONS_TO_COMPLETE = 15;
 const WPM_UPDATE_INTERVAL = 1000;
 
 export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) {
@@ -49,21 +51,137 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
     isCorrect: false,
     feedbackMessage: '',
     usedPhraseIds: [],
+    audioInitialized: false,
   });
 
   const speechSynthesisRef = useRef<SpeechSynthesis | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+
+  // AudioContextの初期化
+  const initAudioContext = useCallback(() => {
+    try {
+      if (!audioContextRef.current) {
+        const AudioContextClass = window.AudioContext || ((window as unknown) as {webkitAudioContext: typeof AudioContext}).webkitAudioContext;
+        audioContextRef.current = new AudioContextClass();
+        
+        // iOS SafariでのAudioContext対応
+        if (audioContextRef.current.state === 'suspended') {
+          audioContextRef.current.resume();
+        }
+        
+        setGameState(prev => ({ ...prev, audioInitialized: true }));
+      }
+    } catch (error) {
+      console.error('AudioContext初期化エラー:', error);
+    }
+  }, []);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       speechSynthesisRef.current = window.speechSynthesis;
+      
+      // ユーザーインタラクションイベントでAudioContextを初期化
+      const userInteractionEvents = ['click', 'touchstart', 'keydown', 'touchend'];
+      const handleUserInteraction = () => {
+        initAudioContext();
+        userInteractionEvents.forEach(event => 
+          document.removeEventListener(event, handleUserInteraction)
+        );
+      };
+      
+      userInteractionEvents.forEach(event => 
+        document.addEventListener(event, handleUserInteraction)
+      );
+
+      // 初回のモバイル対応として、ロード時に初期化を試みる
+      setTimeout(initAudioContext, 500);
     }
+    
     return () => {
       if (speechSynthesisRef.current) {
         speechSynthesisRef.current.cancel();
       }
+      
+      const events = ['click', 'touchstart', 'keydown', 'touchend'];
+      events.forEach(event => document.removeEventListener(event, () => {}));
     };
+  }, [initAudioContext]);
+
+  const playSound = useCallback((isCorrect: boolean) => {
+    try {
+      if (!audioContextRef.current) {
+        initAudioContext();
+        // まだ初期化できない場合は音を鳴らせない
+        if (!audioContextRef.current) return;
+      }
+
+      // iOS SafariでのAudioContext対応
+      if (audioContextRef.current.state === 'suspended') {
+        audioContextRef.current.resume();
+      }
+      
+      const audioCtx = audioContextRef.current;
+      const oscillator = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      
+      if (isCorrect) {
+        // 正解音
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); // A5
+        oscillator.frequency.setValueAtTime(1318.51, audioCtx.currentTime + 0.1); // E6
+        oscillator.frequency.setValueAtTime(1760, audioCtx.currentTime + 0.2); // A6
+        
+        gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        
+        oscillator.start();
+        oscillator.stop(audioCtx.currentTime + 0.5);
+      } else {
+        // 不正解音
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(440, audioCtx.currentTime); // A4
+        oscillator.frequency.setValueAtTime(415.3, audioCtx.currentTime + 0.1); // G#4/Ab4
+        
+        gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        
+        oscillator.start();
+        oscillator.stop(audioCtx.currentTime + 0.4);
+      }
+    } catch (error) {
+      console.error('効果音再生エラー:', error);
+    }
+  }, [initAudioContext]);
+
+  // フォールバックとしての音声ファイル再生（Web Audio APIが使えない環境用）
+  const playSoundFallback = useCallback((isCorrect: boolean) => {
+    try {
+      const sound = new Audio();
+      sound.src = isCorrect ? '/audio/correct.mp3' : '/audio/incorrect.mp3';
+      sound.play().catch(e => console.error('音声再生エラー:', e));
+    } catch (error) {
+      console.error('音声再生フォールバックエラー:', error);
+    }
   }, []);
+
+  // 効果音を再生する関数
+  const playEffect = useCallback((isCorrect: boolean) => {
+    try {
+      // Web Audio APIを試す
+      playSound(isCorrect);
+    } catch (error) {
+      console.error('効果音エラー、フォールバックを使用します:', error);
+      // フォールバックとして音声ファイル再生を試みる
+      playSoundFallback(isCorrect);
+    }
+  }, [playSound, playSoundFallback]);
 
   const playPhrase = useCallback(() => {
     if (!gameState.currentPhrase || !speechSynthesisRef.current) return;
@@ -120,8 +238,10 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
 
     setTimeout(() => {
       playPhrase();
+      // ゲーム開始時にAudioContextを初期化
+      initAudioContext();
     }, 500);
-  }, [getRandomPhrase, playPhrase]);
+  }, [getRandomPhrase, playPhrase, initAudioContext]);
 
   useEffect(() => {
     startGame();
@@ -174,6 +294,14 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
     const newTotalKeystrokes = gameState.totalKeystrokes + input.length;
 
     const isCorrect = input.trim().toLowerCase() === currentPhrase.trim().toLowerCase();
+    
+    // 効果音を再生
+    playEffect(isCorrect);
+    
+    // 進捗を保存
+    if (gameState.currentPhrase) {
+      updatePhraseProgress(gameState.currentPhrase.id, isCorrect);
+    }
     
     if (isCorrect) {
       newCorrectKeystrokes += input.length;
@@ -251,7 +379,7 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       <div className="mb-6 flex justify-between items-center">
         <div className="text-sm text-gray-600">
-          残り問題数: {QUESTIONS_TO_COMPLETE - gameState.questionsCompleted}問
+          残り問題数: {Math.max(0, QUESTIONS_TO_COMPLETE - gameState.questionsCompleted)}問
         </div>
         <div className="flex gap-4">
           <div className="text-sm">
