@@ -51,7 +51,6 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
     usedPhraseIds: [],
   });
 
-  const audioRef = useRef<HTMLAudioElement | null>(null);
   const speechSynthesisRef = useRef<SpeechSynthesis | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -172,7 +171,7 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
     const input = gameState.userInput;
     const currentPhrase = gameState.currentPhrase.english;
     let newCorrectKeystrokes = gameState.correctKeystrokes;
-    let newTotalKeystrokes = gameState.totalKeystrokes + input.length;
+    const newTotalKeystrokes = gameState.totalKeystrokes + input.length;
 
     const isCorrect = input.trim().toLowerCase() === currentPhrase.trim().toLowerCase();
     
