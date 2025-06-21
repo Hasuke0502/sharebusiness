@@ -3009,8 +3009,20 @@ const phrasesCache = {
 
 // キャッシュをリセットする関数
 export const resetPhrasesCache = () => {
-  phrasesCache.byLevel = {};
-  phrasesCache.byPart = {};
+  phrasesCache.byLevel = {
+    "300-500": [],
+    "500-700": [],
+    "700-900": []
+  };
+  phrasesCache.byPart = {
+    "Part1": [],
+    "Part2": [],
+    "Part3": [],
+    "Part4": [],
+    "Part5": [],
+    "Part6": [],
+    "Part7": []
+  };
   phrasesCache.byLevelAndPart = {};
 };
 
