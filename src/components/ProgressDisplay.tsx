@@ -108,11 +108,11 @@ export default function ProgressDisplay({ initialLevel, initialPart, progressUpd
   // フレーズ表示部分をメモ化
   const phrasesDisplay = useMemo(() => {
     if (isLoading) {
-      return <div className="text-center py-4">読み込み中...</div>;
+      return <div className="text-center py-4 font-medium">読み込み中...</div>;
     }
     
     if (!progress.phrases || progress.phrases.length === 0) {
-      return <div className="text-center py-4">このレベル・パートのフレーズはありません</div>;
+      return <div className="text-center py-4 font-medium">このレベル・パートのフレーズはありません</div>;
     }
     
     return (
@@ -122,8 +122,8 @@ export default function ProgressDisplay({ initialLevel, initialPart, progressUpd
             key={phrase.id}
             className={`p-3 rounded text-sm border ${
               mastered 
-                ? 'bg-green-500 text-white border-green-600' 
-                : 'bg-white border-gray-200 text-gray-700'
+                ? 'bg-green-500 text-white border-green-600 font-medium' 
+                : 'bg-white border-gray-200 text-gray-900 font-medium'
             }`}
             title={`${phrase.english}\n${phrase.japanese}`}
           >
@@ -131,7 +131,7 @@ export default function ProgressDisplay({ initialLevel, initialPart, progressUpd
               {phrase.english}
             </div>
             {mastered && (
-              <div className="text-xs mt-1 flex items-center">
+              <div className="text-xs mt-1 flex items-center font-medium">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
@@ -147,10 +147,10 @@ export default function ProgressDisplay({ initialLevel, initialPart, progressUpd
   return (
     <div className="bg-white rounded-lg shadow-lg p-6">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold">今までの成果</h2>
+        <h2 className="text-xl font-semibold text-black">今までの成果</h2>
         <button
           onClick={toggleVisibility}
-          className="text-blue-600 hover:underline flex items-center"
+          className="text-blue-700 hover:underline flex items-center font-medium"
         >
           {isVisible ? '閉じる ▲' : '詳細を表示 ▼'}
         </button>
@@ -163,7 +163,7 @@ export default function ProgressDisplay({ initialLevel, initialPart, progressUpd
             style={{ width: `${allPhrasesProgress}%` }}
           ></div>
         </div>
-        <div className="text-right mt-1 text-sm text-gray-600">
+        <div className="text-right mt-1 text-sm text-gray-800 font-medium">
           全体進捗: {allPhrasesProgress}% (全レベル・全パート)
         </div>
       </div>
@@ -172,7 +172,7 @@ export default function ProgressDisplay({ initialLevel, initialPart, progressUpd
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-800 mb-1">
                 TOEICスコアレベル
               </label>
               <select
@@ -187,7 +187,7 @@ export default function ProgressDisplay({ initialLevel, initialPart, progressUpd
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-800 mb-1">
                 パート
               </label>
               <select
@@ -208,7 +208,7 @@ export default function ProgressDisplay({ initialLevel, initialPart, progressUpd
           </div>
           
           <div>
-            <h3 className="font-medium mb-2">
+            <h3 className="font-medium mb-2 text-gray-900">
               {level}点レベル・{part}の進捗: {progress.mastered}/{progress.total}フレーズ習得
             </h3>
             {phrasesDisplay}

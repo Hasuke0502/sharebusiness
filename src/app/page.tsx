@@ -9,7 +9,7 @@ import { forceInvalidateCache } from '@/utils/progressStorage';
 
 export default function Home() {
   const [selectedLevel, setSelectedLevel] = useState<ToeicLevel>('300-500');
-  const [selectedPart, setSelectedPart] = useState<ToeicPart>('Part2');
+  const [selectedPart, setSelectedPart] = useState<ToeicPart>('Part1');
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [skipMasteredPhrases, setSkipMasteredPhrases] = useState(false);
   const [gameResults, setGameResults] = useState<{
@@ -72,31 +72,31 @@ export default function Home() {
             <div className="flex justify-between items-center mb-6">
               <button
                 onClick={() => setIsGameStarted(false)}
-                className="text-gray-600 hover:text-gray-800"
+                className="text-gray-800 hover:text-black font-medium"
               >
                 ← 戻る
               </button>
               <div className="text-right">
-                <div className="text-sm text-gray-600">
+                <div className="text-sm text-gray-800 font-medium">
                   {selectedLevel}点レベル | {selectedPart}
                 </div>
               </div>
             </div>
 
             {gameResults && (
-              <div className="mb-6 p-4 bg-blue-50 rounded-lg">
+              <div className="mb-6 p-4 bg-blue-100 rounded-lg">
                 <h3 className="text-lg font-semibold mb-2">ゲーム結果</h3>
                 <div className="grid grid-cols-3 gap-4">
                   <div className="text-center">
-                    <div className="text-sm text-gray-600">スコア</div>
+                    <div className="text-sm text-gray-800 font-medium">スコア</div>
                     <div className="text-xl font-bold">{gameResults.score}</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-sm text-gray-600">WPM</div>
+                    <div className="text-sm text-gray-800 font-medium">WPM</div>
                     <div className="text-xl font-bold">{gameResults.wpm}</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-sm text-gray-600">正確率</div>
+                    <div className="text-sm text-gray-800 font-medium">正確率</div>
                     <div className="text-xl font-bold">{gameResults.accuracy}%</div>
                   </div>
                 </div>
@@ -119,7 +119,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
+        <h1 className="text-3xl font-bold text-center mb-8 text-black">
           TOEICタイピングマスター
         </h1>
         
@@ -131,7 +131,7 @@ export default function Home() {
           />
           
           <section className="mt-6">
-            <h2 className="text-xl font-semibold mb-4">TOEICスコアレベルを選択</h2>
+            <h2 className="text-xl font-semibold mb-4 text-black">TOEICスコアレベルを選択</h2>
             <div className="grid grid-cols-3 gap-4">
               {(['300-500', '500-700', '700-900'] as ToeicLevel[]).map((level) => (
                 <button
@@ -139,8 +139,8 @@ export default function Home() {
                   onClick={() => setSelectedLevel(level)}
                   className={`p-4 rounded-lg text-center transition-colors ${
                     selectedLevel === level
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-100 hover:bg-gray-200'
+                      ? 'bg-blue-600 text-white font-semibold'
+                      : 'bg-gray-100 hover:bg-gray-200 text-gray-900 font-medium'
                   }`}
                 >
                   {level}点
@@ -151,7 +151,7 @@ export default function Home() {
 
           <section>
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">学習するパートを選択</h2>
+              <h2 className="text-xl font-semibold text-black">学習するパートを選択</h2>
               <label className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
@@ -159,7 +159,7 @@ export default function Home() {
                   onChange={handleToggleSkipMastered}
                   className="form-checkbox h-5 w-5 text-blue-600"
                 />
-                <span className="ml-2 text-sm">クリアした問題はスキップ</span>
+                <span className="ml-2 text-sm text-gray-900 font-medium">クリアした問題はスキップ</span>
               </label>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -169,8 +169,8 @@ export default function Home() {
                   onClick={() => setSelectedPart(part)}
                   className={`p-3 rounded-lg text-center transition-colors ${
                     selectedPart === part
-                      ? 'bg-green-600 text-white'
-                      : 'bg-gray-100 hover:bg-gray-200'
+                      ? 'bg-green-600 text-white font-semibold'
+                      : 'bg-gray-100 hover:bg-gray-200 text-gray-900 font-medium'
                   }`}
                 >
                   {part}
