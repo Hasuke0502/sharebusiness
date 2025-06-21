@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { ToeicLevel, ToeicPart, getPhrasesByLevelAndPart, resetPhrasesCache } from '@/data/toeicPhrases';
-import { getLevelPartProgress, getOverallProgress, getAllPhrasesProgress, forceInvalidateCache } from '@/utils/progressStorage';
+import { getLevelPartProgress, getAllPhrasesProgress, forceInvalidateCache } from '@/utils/progressStorage';
 
 interface ProgressDisplayProps {
   initialLevel?: ToeicLevel;

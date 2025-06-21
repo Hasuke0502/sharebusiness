@@ -242,7 +242,7 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
 
     const randomPhrase = availableUnusedPhrases[Math.floor(Math.random() * availableUnusedPhrases.length)];
     return randomPhrase;
-  }, [availablePhrases, availablePhrases.length]);
+  }, [availablePhrases]);
 
   const startGame = useCallback(() => {
     // 利用可能なフレーズが無い場合は全問題を表示
@@ -314,7 +314,7 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
       // ゲーム開始時にAudioContextを初期化
       initAudioContext();
     }, 500);
-  }, [getRandomPhrase, playPhrase, initAudioContext, level, part]);
+  }, [getRandomPhrase, playPhrase, initAudioContext, level, part, availablePhrases.length]);
 
   // 初期ロード時とavailablePhrases更新時にゲーム開始
   useEffect(() => {
