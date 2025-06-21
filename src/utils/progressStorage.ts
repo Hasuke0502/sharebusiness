@@ -33,7 +33,7 @@ const progressCache = {
 };
 
 // キャッシュの有効期限（ミリ秒）
-const CACHE_TTL = 1000; // 1秒
+const CACHE_TTL = 0; // キャッシュを無効化
 
 // キャッシュが有効かどうか
 const isCacheValid = () => {
@@ -46,6 +46,12 @@ const clearCache = () => {
   progressCache.levelPartProgress = {};
   progressCache.overallProgress = null;
   progressCache.allPhrasesProgress = null;
+};
+
+// キャッシュを強制的にクリア（進捗更新時に呼び出す）
+export const forceInvalidateCache = () => {
+  progressCache.lastUpdated = 0;
+  clearCache();
 };
 
 // 初期進捗データを生成

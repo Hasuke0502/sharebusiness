@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Phrase, ToeicLevel, ToeicPart, getPhrasesByLevelAndPart } from '@/data/toeicPhrases';
-import { updatePhraseProgress } from '@/utils/progressStorage';
+import { updatePhraseProgress, isPhrasesMastered, forceInvalidateCache } from '@/utils/progressStorage';
 
 interface GameState {
   currentPhrase: Phrase | null;
@@ -28,12 +28,14 @@ interface TypingGameProps {
   level: ToeicLevel;
   part: ToeicPart;
   onGameEnd: (score: number, wpm: number, accuracy: number) => void;
+  skipMasteredPhrases: boolean;
+  onProgressUpdate?: () => void;
 }
 
 const QUESTIONS_TO_COMPLETE = 15;
 const WPM_UPDATE_INTERVAL = 1000;
 
-export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) {
+export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases, onProgressUpdate }: TypingGameProps) {
   const [gameState, setGameState] = useState<GameState>({
     currentPhrase: null,
     userInput: '',
@@ -53,10 +55,34 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
     usedPhraseIds: [],
     audioInitialized: false,
   });
+  const [totalPhrases, setTotalPhrases] = useState<number>(0);
+  const [availablePhrases, setAvailablePhrases] = useState<Phrase[]>([]);
+  const [initialLoadComplete, setInitialLoadComplete] = useState<boolean>(false);
 
   const speechSynthesisRef = useRef<SpeechSynthesis | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
+
+  // 利用可能なフレーズを取得（マスター済みのフレーズをフィルタリング）
+  const getAvailablePhrases = useCallback((level: ToeicLevel, part: ToeicPart) => {
+    const allPhrases = getPhrasesByLevelAndPart(level, part);
+    
+    if (!skipMasteredPhrases) {
+      return allPhrases;
+    }
+    
+    const nonMasteredPhrases = allPhrases.filter(phrase => !isPhrasesMastered(phrase.id));
+    return nonMasteredPhrases.length > 0 ? nonMasteredPhrases : allPhrases;
+  }, [skipMasteredPhrases, level, part]);
+
+  // レベルとパートが変更された、またはスキップ設定が変更されたときに利用可能なフレーズを更新
+  useEffect(() => {
+    const phrases = getPhrasesByLevelAndPart(level, part);
+    setTotalPhrases(phrases.length);
+    
+    const availablePhrasesArray = getAvailablePhrases(level, part);
+    setAvailablePhrases(availablePhrasesArray);
+  }, [level, part, skipMasteredPhrases, getAvailablePhrases]);
 
   // AudioContextの初期化
   const initAudioContext = useCallback(() => {
@@ -198,22 +224,69 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
     };
   }, [gameState.currentPhrase]);
 
+  // リスト内からランダムに問題を取得（クリア済みの問題は選ばない）
   const getRandomPhrase = useCallback((usedIds: string[]) => {
-    const phrases = getPhrasesByLevelAndPart(level, part);
-    if (phrases.length === 0) return null;
-
-    const availablePhrases = phrases.filter(phrase => !usedIds.includes(phrase.id));
-
+    // 利用可能なフレーズが0の場合は全フレーズを使用する
     if (availablePhrases.length === 0) {
-      const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+      return null;
+    }
+
+    // 使用済みでない利用可能なフレーズを取得
+    const availableUnusedPhrases = availablePhrases.filter(phrase => !usedIds.includes(phrase.id));
+
+    if (availableUnusedPhrases.length === 0) {
+      // すべての問題が使用済みの場合、全問題から再度ランダムに選択
+      const randomPhrase = availablePhrases[Math.floor(Math.random() * availablePhrases.length)];
       return randomPhrase;
     }
 
-    const randomPhrase = availablePhrases[Math.floor(Math.random() * availablePhrases.length)];
+    const randomPhrase = availableUnusedPhrases[Math.floor(Math.random() * availableUnusedPhrases.length)];
     return randomPhrase;
-  }, [level, part]);
+  }, [availablePhrases]);
 
   const startGame = useCallback(() => {
+    // 利用可能なフレーズが無い場合は全問題を表示
+    if (availablePhrases.length === 0) {
+      const allPhrases = getPhrasesByLevelAndPart(level, part);
+      setAvailablePhrases(allPhrases);
+      
+      setGameState(prev => ({
+        ...prev,
+        showFeedback: true,
+        isCorrect: true,
+        feedbackMessage: 'すべての問題をクリア済みです。全ての問題を表示します。',
+      }));
+      
+      setTimeout(() => {
+        const randomPhrase = allPhrases[Math.floor(Math.random() * allPhrases.length)];
+        if (randomPhrase) {
+          setGameState(prev => ({
+            ...prev,
+            currentPhrase: randomPhrase,
+            userInput: '',
+            score: 0,
+            wpm: 0,
+            accuracy: 100,
+            isGameOver: false,
+            startTime: Date.now(),
+            totalKeystrokes: 0,
+            correctKeystrokes: 0,
+            questionsCompleted: 0,
+            isPlaying: false,
+            showFeedback: false,
+            usedPhraseIds: [randomPhrase.id],
+          }));
+          
+          setTimeout(() => {
+            playPhrase();
+            initAudioContext();
+          }, 500);
+        }
+      }, 1500);
+      
+      return;
+    }
+
     const randomPhrase = getRandomPhrase([]);
     if (!randomPhrase) return;
 
@@ -241,11 +314,22 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
       // ゲーム開始時にAudioContextを初期化
       initAudioContext();
     }, 500);
-  }, [getRandomPhrase, playPhrase, initAudioContext]);
+  }, [getRandomPhrase, playPhrase, initAudioContext, level, part]);
 
+  // 初期ロード時とavailablePhrases更新時にゲーム開始
   useEffect(() => {
-    startGame();
-  }, [startGame]);
+    if (!initialLoadComplete && availablePhrases.length > 0) {
+      startGame();
+      setInitialLoadComplete(true);
+    }
+  }, [availablePhrases, initialLoadComplete]);
+
+  // skippedMasteredPhrases設定が変更されたらゲームをリセット
+  useEffect(() => {
+    if (initialLoadComplete) {
+      startGame();
+    }
+  }, [skipMasteredPhrases, initialLoadComplete]);
 
   useEffect(() => {
     if (gameState.currentPhrase && gameState.questionsCompleted > 0 && !gameState.isGameOver) {
@@ -285,6 +369,13 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
     }));
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !gameState.isGameOver) {
+      e.preventDefault();
+      checkAnswer();
+    }
+  };
+
   const checkAnswer = () => {
     if (gameState.isGameOver || !gameState.currentPhrase) return;
 
@@ -301,13 +392,32 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
     // 進捗を保存
     if (gameState.currentPhrase) {
       updatePhraseProgress(gameState.currentPhrase.id, isCorrect);
+      forceInvalidateCache();
+      
+      // カスタムイベントをディスパッチして進捗更新を通知
+      const event = new Event('progressUpdated');
+      window.dispatchEvent(event);
+      
+      // 親コンポーネントに通知
+      if (isCorrect && onProgressUpdate) {
+        onProgressUpdate();
+      }
     }
     
     if (isCorrect) {
       newCorrectKeystrokes += input.length;
       const newQuestionsCompleted = gameState.questionsCompleted + 1;
       
-      if (newQuestionsCompleted >= QUESTIONS_TO_COMPLETE) {
+      // 正解した場合、スキップ設定がオンの場合は利用可能なフレーズを更新
+      // 無限ループを防ぐために、即時のsetAvailablePhrasesを避ける
+      let updatedAvailablePhrases: Phrase[] | null = null;
+      if (skipMasteredPhrases) {
+        // 正解した問題をフィルタリングするために利用可能なフレーズを取得
+        updatedAvailablePhrases = getAvailablePhrases(level, part);
+      }
+      
+      // ゲーム終了条件の確認
+      if (newQuestionsCompleted >= Math.min(availablePhrases.length, QUESTIONS_TO_COMPLETE)) {
         setGameState(prev => ({
           ...prev,
           isGameOver: true,
@@ -325,8 +435,16 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
           gameState.wpm,
           Math.round((newCorrectKeystrokes / newTotalKeystrokes) * 100)
         );
+        
+        // ゲーム終了後に利用可能なフレーズを更新（必要な場合）
+        if (updatedAvailablePhrases) {
+          setTimeout(() => {
+            setAvailablePhrases(updatedAvailablePhrases);
+          }, 0);
+        }
       } else {
-        const nextPhrase = getRandomPhrase(gameState.usedPhraseIds);
+        // 現在のゲーム状態の更新
+        const nextPhrase = getRandomPhrase([...gameState.usedPhraseIds, gameState.currentPhrase.id]);
         if (!nextPhrase) return;
         
         setGameState(prev => ({
@@ -343,6 +461,13 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
           feedbackMessage: '正解です！次の問題に進みます。',
           usedPhraseIds: [...prev.usedPhraseIds, nextPhrase.id],
         }));
+
+        // ゲーム継続時、タイマーで利用可能なフレーズを更新（必要な場合）
+        if (updatedAvailablePhrases) {
+          setTimeout(() => {
+            setAvailablePhrases(updatedAvailablePhrases);
+          }, 0);
+        }
 
         setTimeout(() => {
           if (inputRef.current) {
@@ -379,7 +504,7 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       <div className="mb-6 flex justify-between items-center">
         <div className="text-sm text-gray-600">
-          残り問題数: {Math.max(0, QUESTIONS_TO_COMPLETE - gameState.questionsCompleted)}問
+          {part}（{totalPhrases}問中{skipMasteredPhrases ? availablePhrases.length : totalPhrases}問が利用可能）
         </div>
         <div className="flex gap-4">
           <div className="text-sm">
@@ -445,6 +570,7 @@ export default function TypingGame({ level, part, onGameEnd }: TypingGameProps) 
             type="text"
             value={gameState.userInput}
             onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
             disabled={gameState.isGameOver}
             className="w-full p-2 border rounded-lg font-mono text-lg"
             placeholder="ここにタイプしてください..."

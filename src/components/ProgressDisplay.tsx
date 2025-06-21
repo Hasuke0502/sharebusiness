@@ -2,14 +2,15 @@
 
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { ToeicLevel, ToeicPart, getPhrasesByLevelAndPart, resetPhrasesCache } from '@/data/toeicPhrases';
-import { getLevelPartProgress, getOverallProgress, getAllPhrasesProgress } from '@/utils/progressStorage';
+import { getLevelPartProgress, getOverallProgress, getAllPhrasesProgress, forceInvalidateCache } from '@/utils/progressStorage';
 
 interface ProgressDisplayProps {
   initialLevel?: ToeicLevel;
   initialPart?: ToeicPart;
+  progressUpdateCounter?: number; // 進捗更新のトリガー用カウンター
 }
 
-export default function ProgressDisplay({ initialLevel, initialPart }: ProgressDisplayProps) {
+export default function ProgressDisplay({ initialLevel, initialPart, progressUpdateCounter = 0 }: ProgressDisplayProps) {
   const [level, setLevel] = useState<ToeicLevel>(initialLevel || '300-500');
   const [part, setPart] = useState<ToeicPart>(initialPart || 'Part1');
   const [isLoading, setIsLoading] = useState(false);
@@ -79,10 +80,30 @@ export default function ProgressDisplay({ initialLevel, initialPart }: ProgressD
     };
     
     window.addEventListener('storage', handleStorageChange);
+    
+    // カスタムイベントで進捗更新を検知
+    const handleProgressUpdated = () => {
+      resetPhrasesCache();
+      forceInvalidateCache();
+      updateProgress();
+    };
+    
+    window.addEventListener('progressUpdated', handleProgressUpdated);
+    
     return () => {
       window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('progressUpdated', handleProgressUpdated);
     };
   }, [updateProgress]);
+
+  // カウンターが変更されたら進捗を更新
+  useEffect(() => {
+    if (progressUpdateCounter > 0) {
+      resetPhrasesCache();
+      forceInvalidateCache();
+      updateProgress();
+    }
+  }, [progressUpdateCounter, updateProgress]);
 
   // フレーズ表示部分をメモ化
   const phrasesDisplay = useMemo(() => {
