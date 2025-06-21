@@ -14,7 +14,6 @@ export default function ProgressDisplay({ initialLevel, initialPart, progressUpd
   const [level, setLevel] = useState<ToeicLevel>(initialLevel || '300-500');
   const [part, setPart] = useState<ToeicPart>(initialPart || 'Part1');
   const [isLoading, setIsLoading] = useState(false);
-  const [overallProgress, setOverallProgress] = useState(0);
   const [allPhrasesProgress, setAllPhrasesProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   
@@ -27,7 +26,6 @@ export default function ProgressDisplay({ initialLevel, initialPart, progressUpd
   // 進捗状況を更新する関数
   const updateProgress = useCallback(() => {
     setAllPhrasesProgress(getAllPhrasesProgress());
-    setOverallProgress(getOverallProgress());
   }, []);
   
   // レベル・パートが変更されたときの処理

@@ -73,7 +73,7 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
     
     const nonMasteredPhrases = allPhrases.filter(phrase => !isPhrasesMastered(phrase.id));
     return nonMasteredPhrases.length > 0 ? nonMasteredPhrases : allPhrases;
-  }, [skipMasteredPhrases, level, part]);
+  }, [skipMasteredPhrases]);
 
   // レベルとパートが変更された、またはスキップ設定が変更されたときに利用可能なフレーズを更新
   useEffect(() => {
@@ -242,7 +242,7 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
 
     const randomPhrase = availableUnusedPhrases[Math.floor(Math.random() * availableUnusedPhrases.length)];
     return randomPhrase;
-  }, [availablePhrases]);
+  }, [availablePhrases, availablePhrases.length]);
 
   const startGame = useCallback(() => {
     // 利用可能なフレーズが無い場合は全問題を表示
@@ -322,14 +322,14 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
       startGame();
       setInitialLoadComplete(true);
     }
-  }, [availablePhrases, initialLoadComplete]);
+  }, [availablePhrases, initialLoadComplete, startGame]);
 
   // skippedMasteredPhrases設定が変更されたらゲームをリセット
   useEffect(() => {
     if (initialLoadComplete) {
       startGame();
     }
-  }, [skipMasteredPhrases, initialLoadComplete]);
+  }, [skipMasteredPhrases, initialLoadComplete, startGame]);
 
   useEffect(() => {
     if (gameState.currentPhrase && gameState.questionsCompleted > 0 && !gameState.isGameOver) {
