@@ -7,7 +7,7 @@ import { updatePhraseProgress, isPhrasesMastered, forceInvalidateCache } from '@
 interface GameState {
   currentPhrase: Phrase | null;
   userInput: string;
-  correctAnswers: number;
+  score: number;
   wpm: number;
   accuracy: number;
   isGameOver: boolean;
@@ -33,12 +33,13 @@ interface TypingGameProps {
 }
 
 const QUESTIONS_TO_COMPLETE = 15;
+const WPM_UPDATE_INTERVAL = 1000;
 
 export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases, onProgressUpdate }: TypingGameProps) {
   const [gameState, setGameState] = useState<GameState>({
     currentPhrase: null,
     userInput: '',
-    correctAnswers: 0,
+    score: 0,
     wpm: 0,
     accuracy: 100,
     isGameOver: false,
@@ -61,6 +62,12 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
   const speechSynthesisRef = useRef<SpeechSynthesis | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
+  // 音声ファイル用のAudio要素を事前に作成
+  const correctAudioRef = useRef<HTMLAudioElement | null>(null);
+  const incorrectAudioRef = useRef<HTMLAudioElement | null>(null);
+  
+  // ユーザータッチイベントを追跡するためのフラグ
+  const userInteractedRef = useRef<boolean>(false);
 
   // 利用可能なフレーズを取得（マスター済みのフレーズをフィルタリング）
   const getAvailablePhrases = useCallback((level: ToeicLevel, part: ToeicPart) => {
@@ -83,16 +90,38 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
     setAvailablePhrases(availablePhrasesArray);
   }, [level, part, skipMasteredPhrases, getAvailablePhrases]);
 
+  // 音声ファイルの事前読み込み
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // 音声ファイル用のAudio要素を作成
+      correctAudioRef.current = new Audio('/audio/correct.mp3');
+      incorrectAudioRef.current = new Audio('/audio/incorrect.mp3');
+
+      // iOSのためにAudioをプリロードするが、自動再生はしない
+      correctAudioRef.current.preload = 'auto';
+      incorrectAudioRef.current.preload = 'auto';
+      
+      // 念のため音量を設定
+      correctAudioRef.current.volume = 0.8;
+      incorrectAudioRef.current.volume = 0.8;
+    }
+  }, []);
+
   // AudioContextの初期化
   const initAudioContext = useCallback(() => {
     try {
+      // ユーザーがインタラクションした証拠としてフラグを立てる
+      userInteractedRef.current = true;
+
       if (!audioContextRef.current) {
         const AudioContextClass = window.AudioContext || ((window as unknown) as {webkitAudioContext: typeof AudioContext}).webkitAudioContext;
         audioContextRef.current = new AudioContextClass();
         
         // iOS SafariでのAudioContext対応
         if (audioContextRef.current.state === 'suspended') {
-          audioContextRef.current.resume();
+          audioContextRef.current.resume().catch(err => {
+            console.warn('AudioContext resume failed:', err);
+          });
         }
         
         setGameState(prev => ({ ...prev, audioInitialized: true }));
@@ -110,6 +139,31 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
       const userInteractionEvents = ['click', 'touchstart', 'keydown', 'touchend'];
       const handleUserInteraction = () => {
         initAudioContext();
+
+        // 音声ファイルの再生を試みて承認を得る（ボリューム0で再生して即停止）
+        if (correctAudioRef.current && incorrectAudioRef.current) {
+          // 音量を一時的に0にする
+          correctAudioRef.current.volume = 0;
+          incorrectAudioRef.current.volume = 0;
+          
+          // iOS Safariでの音声再生を許可するために短い音を鳴らす
+          correctAudioRef.current.play()
+            .then(() => {
+              correctAudioRef.current!.pause();
+              correctAudioRef.current!.currentTime = 0;
+              correctAudioRef.current!.volume = 0.8;
+            })
+            .catch(e => console.warn('Audio permission not granted yet:', e));
+          
+          incorrectAudioRef.current.play()
+            .then(() => {
+              incorrectAudioRef.current!.pause();
+              incorrectAudioRef.current!.currentTime = 0;
+              incorrectAudioRef.current!.volume = 0.8;
+            })
+            .catch(e => console.warn('Audio permission not granted yet:', e));
+        }
+
         userInteractionEvents.forEach(event => 
           document.removeEventListener(event, handleUserInteraction)
         );
@@ -143,7 +197,12 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
 
       // iOS SafariでのAudioContext対応
       if (audioContextRef.current.state === 'suspended') {
-        audioContextRef.current.resume();
+        audioContextRef.current.resume().catch(err => {
+          console.warn('AudioContext resume failed:', err);
+          // Web Audio APIが使えない場合は音声ファイルフォールバックを使用
+          playSoundFallback(isCorrect);
+          return;
+        });
       }
       
       const audioCtx = audioContextRef.current;
@@ -182,15 +241,40 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
       }
     } catch (error) {
       console.error('効果音再生エラー:', error);
+      // Web Audio APIが例外を投げた場合は音声ファイルを使用
+      playSoundFallback(isCorrect);
     }
   }, [initAudioContext]);
 
   // フォールバックとしての音声ファイル再生（Web Audio APIが使えない環境用）
   const playSoundFallback = useCallback((isCorrect: boolean) => {
     try {
-      const sound = new Audio();
-      sound.src = isCorrect ? '/audio/correct.mp3' : '/audio/incorrect.mp3';
-      sound.play().catch(e => console.error('音声再生エラー:', e));
+      // 事前に作成したAudio要素を使う
+      const audioElement = isCorrect ? correctAudioRef.current : incorrectAudioRef.current;
+      
+      if (!audioElement) {
+        console.warn('Audio element not initialized');
+        return;
+      }
+
+      // 音声をリセットして再生
+      audioElement.currentTime = 0;
+      
+      // iOSとAndroidのモバイル対応
+      const playPromise = audioElement.play();
+      
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.error('音声再生エラー:', error);
+          
+          // ユーザーがインタラクションしていない場合の警告
+          if (!userInteractedRef.current) {
+            console.warn('ユーザーインタラクションが必要です。音声を再生するにはタップしてください。');
+            // 次回ユーザーがインタラクションしたときに音声を有効化するためのフラグを設定
+            userInteractedRef.current = false;
+          }
+        });
+      }
     } catch (error) {
       console.error('音声再生フォールバックエラー:', error);
     }
@@ -199,8 +283,16 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
   // 効果音を再生する関数
   const playEffect = useCallback((isCorrect: boolean) => {
     try {
-      // Web Audio APIを試す
-      playSound(isCorrect);
+      // モバイルでは直接音声ファイルを使用（Web Audio APIは問題が発生しやすい）
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      
+      if (isMobile) {
+        // モバイルデバイスでは直接音声ファイルを使用
+        playSoundFallback(isCorrect);
+      } else {
+        // デスクトップではWeb Audio APIを試す
+        playSound(isCorrect);
+      }
     } catch (error) {
       console.error('効果音エラー、フォールバックを使用します:', error);
       // フォールバックとして音声ファイル再生を試みる
@@ -210,6 +302,9 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
 
   const playPhrase = useCallback(() => {
     if (!gameState.currentPhrase || !speechSynthesisRef.current) return;
+    
+    // ユーザーインタラクションフラグを設定（これにより後で音声を再生可能に）
+    userInteractedRef.current = true;
 
     const utterance = new SpeechSynthesisUtterance(gameState.currentPhrase.english);
     utterance.lang = 'en-US';
@@ -219,6 +314,11 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
     setGameState(prev => ({ ...prev, isPlaying: true }));
 
     utterance.onend = () => {
+      setGameState(prev => ({ ...prev, isPlaying: false }));
+    };
+    
+    utterance.onerror = (event) => {
+      console.error('Speech synthesis error:', event);
       setGameState(prev => ({ ...prev, isPlaying: false }));
     };
   }, [gameState.currentPhrase]);
@@ -234,9 +334,8 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
     const availableUnusedPhrases = availablePhrases.filter(phrase => !usedIds.includes(phrase.id));
 
     if (availableUnusedPhrases.length === 0) {
-      // すべての問題が使用済みの場合、全問題から再度ランダムに選択
-      const randomPhrase = availablePhrases[Math.floor(Math.random() * availablePhrases.length)];
-      return randomPhrase;
+      // すべての問題が使用済みの場合、nullを返す（1チャレンジ内で問題が重複しないようにするため）
+      return null;
     }
 
     const randomPhrase = availableUnusedPhrases[Math.floor(Math.random() * availableUnusedPhrases.length)];
@@ -263,7 +362,7 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
             ...prev,
             currentPhrase: randomPhrase,
             userInput: '',
-            correctAnswers: 0,
+            score: 0,
             wpm: 0,
             accuracy: 100,
             isGameOver: false,
@@ -286,6 +385,20 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
       return;
     }
 
+    // 問題数がQUESTIONS_TO_COMPLETEより少ない場合の警告
+    if (availablePhrases.length < QUESTIONS_TO_COMPLETE) {
+      setGameState(prev => ({
+        ...prev,
+        showFeedback: true,
+        isCorrect: true,
+        feedbackMessage: `利用可能な問題数が${availablePhrases.length}問で、目標の${QUESTIONS_TO_COMPLETE}問より少ないです。全て出題されます。`,
+      }));
+      
+      setTimeout(() => {
+        setGameState(prev => ({ ...prev, showFeedback: false }));
+      }, 3000);
+    }
+
     const randomPhrase = getRandomPhrase([]);
     if (!randomPhrase) return;
 
@@ -293,7 +406,7 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
       ...prev,
       currentPhrase: randomPhrase,
       userInput: '',
-      correctAnswers: 0,
+      score: 0,
       wpm: 0,
       accuracy: 100,
       isGameOver: false,
@@ -337,6 +450,25 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
       }, 500);
     }
   }, [gameState.currentPhrase, gameState.questionsCompleted, gameState.isGameOver, playPhrase]);
+
+  useEffect(() => {
+    if (!gameState.startTime || gameState.isGameOver) return;
+
+    const wpmTimer = setInterval(() => {
+      if (gameState.startTime) {
+        const elapsedMinutes = (Date.now() - gameState.startTime) / 60000;
+        const wordsTyped = gameState.correctKeystrokes / 5;
+        const currentWpm = Math.round(wordsTyped / elapsedMinutes);
+        
+        setGameState(prev => ({
+          ...prev,
+          wpm: currentWpm,
+        }));
+      }
+    }, WPM_UPDATE_INTERVAL);
+
+    return () => clearInterval(wpmTimer);
+  }, [gameState.startTime, gameState.isGameOver, gameState.correctKeystrokes]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (gameState.isGameOver) return;
@@ -398,23 +530,20 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
       
       // ゲーム終了条件の確認
       if (newQuestionsCompleted >= Math.min(availablePhrases.length, QUESTIONS_TO_COMPLETE)) {
-        const finalCorrectAnswers = isCorrect ? gameState.correctAnswers + 1 : gameState.correctAnswers;
-        const scorePercentage = Math.round((finalCorrectAnswers / newQuestionsCompleted) * 100);
-        
         setGameState(prev => ({
           ...prev,
           isGameOver: true,
-          correctAnswers: finalCorrectAnswers,
+          score: prev.score + 100,
           correctKeystrokes: newCorrectKeystrokes,
           totalKeystrokes: newTotalKeystrokes,
           accuracy: Math.round((newCorrectKeystrokes / newTotalKeystrokes) * 100),
           questionsCompleted: newQuestionsCompleted,
           showFeedback: true,
           isCorrect: true,
-          feedbackMessage: `正解です！ゲームクリアおめでとうございます！\nスコア: ${scorePercentage}%（${finalCorrectAnswers}/${newQuestionsCompleted}問正解）`,
+          feedbackMessage: '正解です！ゲームクリアおめでとうございます！',
         }));
         onGameEnd(
-          scorePercentage,
+          gameState.score + 100,
           gameState.wpm,
           Math.round((newCorrectKeystrokes / newTotalKeystrokes) * 100)
         );
@@ -428,13 +557,40 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
       } else {
         // 現在のゲーム状態の更新
         const nextPhrase = getRandomPhrase([...gameState.usedPhraseIds, gameState.currentPhrase.id]);
-        if (!nextPhrase) return;
+        
+        // すべての問題が使用済みの場合、ゲーム終了
+        if (!nextPhrase) {
+          setGameState(prev => ({
+            ...prev,
+            isGameOver: true,
+            score: prev.score + 100,
+            correctKeystrokes: newCorrectKeystrokes,
+            totalKeystrokes: newTotalKeystrokes,
+            accuracy: Math.round((newCorrectKeystrokes / newTotalKeystrokes) * 100),
+            questionsCompleted: newQuestionsCompleted,
+            showFeedback: true,
+            isCorrect: true,
+            feedbackMessage: '正解です！利用可能なすべての問題を解きました。ゲームクリアおめでとうございます！',
+          }));
+          onGameEnd(
+            gameState.score + 100,
+            gameState.wpm,
+            Math.round((newCorrectKeystrokes / newTotalKeystrokes) * 100)
+          );
+          
+          if (updatedAvailablePhrases) {
+            setTimeout(() => {
+              setAvailablePhrases(updatedAvailablePhrases);
+            }, 0);
+          }
+          return;
+        }
         
         setGameState(prev => ({
           ...prev,
           currentPhrase: nextPhrase,
           userInput: '',
-          correctAnswers: prev.correctAnswers + 1,
+          score: prev.score + 100,
           correctKeystrokes: newCorrectKeystrokes,
           totalKeystrokes: newTotalKeystrokes,
           accuracy: Math.round((newCorrectKeystrokes / newTotalKeystrokes) * 100),
@@ -489,12 +645,17 @@ export default function TypingGame({ level, part, onGameEnd, skipMasteredPhrases
         <div className="text-sm text-gray-600">
           {part}（{totalPhrases}問中{skipMasteredPhrases ? availablePhrases.length : totalPhrases}問が利用可能）
         </div>
-        {gameState.isGameOver && (
-          <div className="text-sm font-bold">
-            スコア: {Math.round((gameState.correctAnswers / gameState.questionsCompleted) * 100)}%
-            （{gameState.correctAnswers}/{gameState.questionsCompleted}問正解）
+        <div className="flex gap-4">
+          <div className="text-sm">
+            WPM: {gameState.wpm}
           </div>
-        )}
+          <div className="text-sm">
+            正確率: {gameState.accuracy}%
+          </div>
+          <div className="text-sm">
+            スコア: {gameState.score}
+          </div>
+        </div>
       </div>
 
       <div className="mb-6">
